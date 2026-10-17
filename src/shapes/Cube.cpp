@@ -1,5 +1,5 @@
 // Cube.cpp
-#include "Cube.h"
+#include "shapes/Cube.h"
 
 float vertices[] = {
     // positions          // tex coords

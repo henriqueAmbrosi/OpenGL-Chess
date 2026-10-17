@@ -1,5 +1,5 @@
 // Prisma.cpp
-#include "Prisma.h"
+#include "shapes/Prisma.h"
 
 float verticesPrisma[] = {
     // positions          // tex coords

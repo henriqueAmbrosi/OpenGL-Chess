@@ -3,7 +3,8 @@ CFLAGS  := -std=c++17 -Wall -Wextra -Iinclude -I.
 LIBS    := -lGLEW -lglfw -lGL -lX11 -lpthread -ldl -lXrandr -lXi
 
 MAIN    := main.cpp
-SOURCES := $(wildcard src/*.cpp)
+# Busca recursivamente todos os .cpp dentro de src/ e suas subpastas
+SOURCES := $(shell find src -name "*.cpp")
 TARGET  := out
 
 .PHONY: compile debug clean compile_commands
@@ -11,7 +12,7 @@ TARGET  := out
 compile_commands:
 	@printf '[\n' > compile_commands.json; \
 	first=1; \
-	for f in main.cpp src/*.cpp; do \
+	for f in main.cpp $(shell find src -name "*.cpp"); do \
 		[ $$first -eq 1 ] || printf ',\n' >> compile_commands.json; \
 		first=0; \
 		printf '  {\n    "directory": "%s",\n    "command": "g++ %s -c %s",\n    "file": "%s"\n  }' \

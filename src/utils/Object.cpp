@@ -1,4 +1,4 @@
-#include "Object.h"
+#include "utils/Object.h"
 #include <glm/gtc/matrix_transform.hpp>  // se usar glm::rotate, glm::translate etc.
 #include <glm/gtc/type_ptr.hpp>
 
@@ -15,7 +15,7 @@ Object::Object(glm::vec3 pos, glm::vec3 rot, glm::vec3 scl, float angle)
 void Object::draw(Shader& shader, glm::mat4 parentTransform)
 {
     // Implementação base vazia — serve para ser sobrescrita nas classes filhas
-    // (Cube, Banrisul, etc.)
+    // (Cube, etc.)
 
     // Exemplo: se quiser permitir que as classes derivadas chamem o comportamento padrão:
     // glm::mat4 model = parentTransform;

@@ -3,16 +3,21 @@
 #include <glm/glm.hpp>
 #include <glm/gtc/matrix_transform.hpp>
 #include <glm/gtc/type_ptr.hpp>
-#include <Shader.h>
+#include <utils/Shader.h>
 #include <Application.h>
-#include <Cube.h>
-#include <Banrisul.h>
-#include <Texture.h>
+#include <shapes/Cube.h>
+#include <pieces/Peao.h>
+#include <pieces/Cavalo.h>
+#include <pieces/Torre.h>
+#include <pieces/Bispo.h>
+#include <pieces/Rei.h>
+#include <pieces/Rainha.h>
+#include <utils/Texture.h>
 #include <iostream>
 
 int main() {
     // Cria janela e inicializa OpenGL
-    Application app(1024, 768, "Cubos OOP");
+    Application app(1024, 768, "Chess");
     if (!app.init()) return -1;
 
     // Shader
@@ -32,8 +37,9 @@ int main() {
     Cube cube4(glm::vec3(-3.0f, -1.0f, 3.0f));
     Cube cube5(glm::vec3(-4.0f, 0.0f, 0.0f));
 
-    Banrisul banri(glm::vec3(0.0f, 0.0f, 0.0f), 0.0f);
-    banri.scale = glm::vec3(2.5f, 2.5f, 2.5f);
+
+    Rei p1(glm::vec3(0.0f, 0.0f, 0.0f), 0.0f);
+    p1.scale = glm::vec3(2.5f, 2.5f, 2.5f);
 
     // Ativa depth test
     glEnable(GL_DEPTH_TEST);
@@ -74,29 +80,29 @@ int main() {
 
         // Desenha logo banrisul
 
-        banri.draw(shader, model);
+        p1.draw(shader, model);
 
-        // Desenha cubos
+        // // Desenha cubos
 
-        model = glm::rotate(model, (angle * (float) glfwGetTime()) / 20, glm::vec3(0.5f, -0.2f, 0.5f));
-        shader.setMat4("model", model);
-        //cube2.draw(shader, model);
+        // model = glm::rotate(model, (angle * (float) glfwGetTime()) / 20, glm::vec3(0.5f, -0.2f, 0.5f));
+        // shader.setMat4("model", model);
+        // cube2.draw(shader, model);
 
-        model = glm::rotate(model, (angle * (float) glfwGetTime()) / 5, glm::vec3(1.5f, 4.2f, 0.1f));
-        shader.setMat4("model", model);
-        //cube3.draw(shader, model);
+        // model = glm::rotate(model, (angle * (float) glfwGetTime()) / 5, glm::vec3(1.5f, 4.2f, 0.1f));
+        // shader.setMat4("model", model);
+        // //cube3.draw(shader, model);
 
-        model = glm::rotate(model, (-angle * (float) glfwGetTime()) / 40, glm::vec3(-0.8f, 2.1f, -2.0f));
-        shader.setMat4("model", model);
-        //cube4.draw(shader, model);
+        // model = glm::rotate(model, (-angle * (float) glfwGetTime()) / 40, glm::vec3(-0.8f, 2.1f, -2.0f));
+        // shader.setMat4("model", model);
+        // //cube4.draw(shader, model);
 
-        model = glm::rotate(model, (angle * (float) glfwGetTime()) / 40, glm::vec3(-0.5f, -0.2f, 1.45f));
-        shader.setMat4("model", model);
-        //cube4.draw(shader, model);
+        // model = glm::rotate(model, (angle * (float) glfwGetTime()) / 40, glm::vec3(-0.5f, -0.2f, 1.45f));
+        // shader.setMat4("model", model);
+        // //cube4.draw(shader, model);
 
-        model = glm::mat4(1.0f);
-        model = glm::rotate(model, (angle * (float) glfwGetTime()) / -40, glm::vec3(0.0f, 1.0f, 0.0f));
-        //cube5.draw(shader, model);
+        // model = glm::mat4(1.0f);
+        // model = glm::rotate(model, (angle * (float) glfwGetTime()) / -40, glm::vec3(0.0f, 1.0f, 0.0f));
+        // //cube5.draw(shader, model);
 
         // Swap buffers e eventos
         glfwSwapBuffers(app.getWindow());

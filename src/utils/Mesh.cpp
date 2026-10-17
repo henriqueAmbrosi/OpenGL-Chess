@@ -1,4 +1,4 @@
-#include "Mesh.h"
+#include "utils/Mesh.h"
 
 Mesh::Mesh(float* vertices, int size) {
     vertexCount = size / (5 * sizeof(float)); // 3 pos + 2 tex

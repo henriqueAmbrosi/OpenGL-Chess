@@ -1,5 +1,5 @@
-#include "Texture.h"
-#include <stb_image.h>
+#include "utils/Texture.h"
+#include <utils/stb_image.h>
 #include <iostream>
 
 Texture::Texture(const std::string& path, bool flip) {
