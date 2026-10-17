@@ -1,0 +1,107 @@
+# depslib dependency file v1.0
+1792252756 source:/home/henrique/faculdade/OpenGLChess/main.cpp
+	<GL/glew.h>
+	<GLFW/glfw3.h>
+	<glm/glm.hpp>
+	<glm/gtc/matrix_transform.hpp>
+	<glm/gtc/type_ptr.hpp>
+	<Shader.h>
+	<Application.h>
+	<Cube.h>
+	<Banrisul.h>
+	<Texture.h>
+	<iostream>
+
+1603120690 /home/henrique/faculdade/OpenGLChess/include/Shader.h
+	<GL/glew.h>
+	<glm/glm.hpp>
+	<string>
+	<fstream>
+	<sstream>
+	<iostream>
+
+1762216629 /home/henrique/faculdade/OpenGLChess/include/Application.h
+	<GL/glew.h>
+	<GLFW/glfw3.h>
+	<string>
+
+1760978718 /home/henrique/faculdade/OpenGLChess/include/Cube.h
+	"Shader.h"
+	<glm/glm.hpp>
+	<glm/gtc/matrix_transform.hpp>
+	<Object.h>
+
+1760980214 /home/henrique/faculdade/OpenGLChess/include/Object.h
+	<glm/glm.hpp>
+	<glm/gtc/matrix_transform.hpp>
+	<vector>
+	"Shader.h"
+
+1760979846 /home/henrique/faculdade/OpenGLChess/include/Banrisul.h
+	<glm/glm.hpp>
+	<glm/gtc/matrix_transform.hpp>
+	"Object.h"
+	"Shader.h"
+	<vector>
+	<memory>
+
+1757015408 /home/henrique/faculdade/OpenGLChess/include/Texture.h
+	<GL/glew.h>
+	<string>
+
+1762216767 source:/home/henrique/faculdade/OpenGLChess/src/Application.cpp
+	"Application.h"
+	<iostream>
+
+1792008642 source:/home/henrique/faculdade/OpenGLChess/src/Banrisul.cpp
+	"Banrisul.h"
+	"Cube.h"
+
+1760993895 source:/home/henrique/faculdade/OpenGLChess/src/Cube.cpp
+	"Cube.h"
+
+1757014824 source:/home/henrique/faculdade/OpenGLChess/src/Mesh.cpp
+	"Mesh.h"
+
+1757014811 /home/henrique/faculdade/OpenGLChess/include/Mesh.h
+	<GL/glew.h>
+
+1760993472 source:/home/henrique/faculdade/OpenGLChess/src/Object.cpp
+	"Object.h"
+	<glm/gtc/matrix_transform.hpp>
+	<glm/gtc/type_ptr.hpp>
+
+1762216816 source:/home/henrique/faculdade/OpenGLChess/src/Prisma.cpp
+	"Prisma.h"
+
+1761179410 /home/henrique/faculdade/OpenGLChess/include/Prisma.h
+	"Shader.h"
+	<glm/glm.hpp>
+	<glm/gtc/matrix_transform.hpp>
+	<Object.h>
+
+1603045934 source:/home/henrique/faculdade/OpenGLChess/src/stb_image.cpp
+	"stb_image.h"
+
+1603045863 /home/henrique/faculdade/OpenGLChess/include/stb_image.h
+	"stb_image.h"
+	<stdio.h>
+	<stdlib.h>
+	<stdarg.h>
+	<stddef.h>
+	<stdlib.h>
+	<string.h>
+	<limits.h>
+	<math.h>
+	<stdio.h>
+	<assert.h>
+	<stdint.h>
+	<emmintrin.h>
+	<intrin.h>
+	<arm_neon.h>
+
+1757015399 source:/home/henrique/faculdade/OpenGLChess/src/Texture.cpp
+	"Texture.h"
+	<stb_image.h>
+	<iostream>
+
