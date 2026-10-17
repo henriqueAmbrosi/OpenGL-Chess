@@ -11,28 +11,49 @@ Bispo::Bispo(glm::vec3 pos, float angle)
 void Bispo::init() {
     parts.clear();
 
-    // 1 e 2. Base
+    // 1. BASE INFERIOR
     parts.push_back(std::make_unique<TroncoCone>(
         glm::vec3(0.0f, 0.1f, 0.0f), glm::vec3(0.0f, 1.0f, 0.0f), glm::vec3(1.0f), 0.0f, 0.6f, 0.5f, 0.2f
     ));
+
+    // 2. MOLDURA DA BASE
     parts.push_back(std::make_unique<TroncoCone>(
         glm::vec3(0.0f, 0.25f, 0.0f), glm::vec3(0.0f, 1.0f, 0.0f), glm::vec3(1.0f), 0.0f, 0.5f, 0.45f, 0.1f
     ));
 
     // 3. CORPO DO BISPO
     parts.push_back(std::make_unique<TroncoCone>(
-        glm::vec3(0.0f, 0.75f, 0.0f), glm::vec3(0.0f, 1.0f, 0.0f), glm::vec3(1.0f), 0.0f, 0.42f, 0.2f, 0.9f
+        glm::vec3(0.0f, 0.7f, 0.0f), glm::vec3(0.0f, 1.0f, 0.0f), glm::vec3(1.0f), 0.0f, 0.42f, 0.22f, 0.8f
     ));
 
-    // 4. CABEÇA
+    // 4. PRIMEIRO ANEL DA GOLA
+    parts.push_back(std::make_unique<TroncoCone>(
+        glm::vec3(0.0f, 1.15f, 0.0f), glm::vec3(0.0f, 1.0f, 0.0f), glm::vec3(1.0f), 0.0f, 0.28f, 0.28f, 0.07f
+    ));
+
+    // 5. SEGUNDO ANEL DA GOLA
+    parts.push_back(std::make_unique<TroncoCone>(
+        glm::vec3(0.0f, 1.23f, 0.0f), glm::vec3(0.0f, 1.0f, 0.0f), glm::vec3(1.0f), 0.0f, 0.25f, 0.25f, 0.07f
+    ));
+
+    // 6. CABEÇA
     parts.push_back(std::make_unique<Esfera>(
-        glm::vec3(0.0f, 1.4f, 0.0f), glm::vec3(0.0f, 1.0f, 0.0f), glm::vec3(0.6f, 0.9f, 0.6f), 0.0f, 0.5f
+        glm::vec3(0.0f, 1.55f, 0.0f), glm::vec3(0.0f, 1.0f, 0.0f), glm::vec3(0.55f, 0.75f, 0.55f), 0.0f, 0.5f
+    ));
+
+    // 7. ORNAMENTO DO TOPO
+    parts.push_back(std::make_unique<Esfera>(
+        glm::vec3(0.0f, 1.95f, 0.0f), glm::vec3(0.0f, 1.0f, 0.0f), glm::vec3(0.18f, 0.18f, 0.18f), 0.0f, 0.5f
     ));
 }
 
 void Bispo::draw(Shader &shader, glm::mat4 model) {
     model = glm::translate(model, position);
-    if (glm::length(rotation) > 0.0f) model = glm::rotate(model, glm::radians(angle), glm::normalize(rotation));
+    if (glm::length(rotation) > 0.0f) 
+        model = glm::rotate(model, glm::radians(angle), glm::normalize(rotation));
     model = glm::scale(model, scale);
-    for (auto &part : parts) part->draw(shader, model);
+    
+    for (auto &part : parts) {
+        part->draw(shader, model);
+    }
 }
