@@ -38,7 +38,7 @@ int main() {
     Cube cube5(glm::vec3(-4.0f, 0.0f, 0.0f));
 
 
-    Rei p1(glm::vec3(0.0f, 0.0f, 0.0f), 0.0f);
+    Cavalo p1(glm::vec3(0.0f, -4.0f, 0.0f), 0.0f);
     p1.scale = glm::vec3(2.5f, 2.5f, 2.5f);
 
     // Ativa depth test

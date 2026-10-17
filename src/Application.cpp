@@ -9,6 +9,9 @@ Application::~Application() {
 }
 
 bool Application::init() {
+#if defined(__linux__)
+    glfwInitHint(GLFW_PLATFORM, GLFW_PLATFORM_X11);
+#endif
     if (!glfwInit()) {
         std::cerr << "Erro ao inicializar GLFW\n";
         return false;
@@ -17,6 +20,7 @@ bool Application::init() {
     glfwWindowHint(GLFW_CONTEXT_VERSION_MAJOR, 3);
     glfwWindowHint(GLFW_CONTEXT_VERSION_MINOR, 3);
     glfwWindowHint(GLFW_OPENGL_PROFILE, GLFW_OPENGL_CORE_PROFILE);
+    glfwWindowHint(GLFW_CONTEXT_CREATION_API, GLFW_NATIVE_CONTEXT_API);
 
     window = glfwCreateWindow(width, height, title.c_str(), nullptr, nullptr);
     if (!window) {
@@ -28,7 +32,8 @@ bool Application::init() {
     glfwMakeContextCurrent(window);
     glfwSetFramebufferSizeCallback(window, framebuffer_size_callback);
 
-    if (glewInit() != GLEW_OK) {
+    GLenum glewErr = glewInit();
+    if (glewErr != GLEW_OK) {
         std::cerr << "Erro ao inicializar GLEW\n";
         return false;
     }
