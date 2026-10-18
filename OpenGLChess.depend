@@ -1,18 +1,24 @@
 # depslib dependency file v1.0
-1792252756 source:/home/henrique/faculdade/OpenGLChess/main.cpp
+1792334668 source:/home/henrique/faculdade/OpenGLChess/main.cpp
 	<GL/glew.h>
 	<GLFW/glfw3.h>
 	<glm/glm.hpp>
 	<glm/gtc/matrix_transform.hpp>
 	<glm/gtc/type_ptr.hpp>
-	<Shader.h>
+	<utils/Shader.h>
 	<Application.h>
-	<Cube.h>
-	<Banrisul.h>
-	<Texture.h>
+	<shapes/Cube.h>
+	<pieces/Tabuleiro.h>
+	<pieces/Peao.h>
+	<pieces/Cavalo.h>
+	<pieces/Torre.h>
+	<pieces/Bispo.h>
+	<pieces/Rei.h>
+	<pieces/Rainha.h>
+	<utils/Texture.h>
 	<iostream>
 
-1603120690 /home/henrique/faculdade/OpenGLChess/include/Shader.h
+1603120690 /home/henrique/faculdade/OpenGLChess/include/utils/Shader.h
 	<GL/glew.h>
 	<glm/glm.hpp>
 	<string>
@@ -25,65 +31,161 @@
 	<GLFW/glfw3.h>
 	<string>
 
-1760978718 /home/henrique/faculdade/OpenGLChess/include/Cube.h
-	"Shader.h"
+1792256531 /home/henrique/faculdade/OpenGLChess/include/shapes/Cube.h
+	"utils/Shader.h"
 	<glm/glm.hpp>
 	<glm/gtc/matrix_transform.hpp>
-	<Object.h>
+	<utils/Object.h>
 
-1760980214 /home/henrique/faculdade/OpenGLChess/include/Object.h
+1792331763 /home/henrique/faculdade/OpenGLChess/include/utils/Object.h
 	<glm/glm.hpp>
 	<glm/gtc/matrix_transform.hpp>
 	<vector>
-	"Shader.h"
+	<memory>
+	"utils/Shader.h"
 
-1760979846 /home/henrique/faculdade/OpenGLChess/include/Banrisul.h
+1792333138 /home/henrique/faculdade/OpenGLChess/include/pieces/Tabuleiro.h
+	"utils/Object.h"
+	<vector>
+	<memory>
+	<glm/glm.hpp>
+
+1792332844 /home/henrique/faculdade/OpenGLChess/include/pieces/Peao.h
 	<glm/glm.hpp>
 	<glm/gtc/matrix_transform.hpp>
-	"Object.h"
-	"Shader.h"
+	"utils/Object.h"
+	"utils/Shader.h"
 	<vector>
 	<memory>
 
-1757015408 /home/henrique/faculdade/OpenGLChess/include/Texture.h
+1792332839 /home/henrique/faculdade/OpenGLChess/include/pieces/Cavalo.h
+	"utils/Object.h"
+	<vector>
+	<memory>
+
+1792332870 /home/henrique/faculdade/OpenGLChess/include/pieces/Torre.h
+	"utils/Object.h"
+	<vector>
+	<memory>
+
+1792332831 /home/henrique/faculdade/OpenGLChess/include/pieces/Bispo.h
+	"utils/Object.h"
+	<vector>
+	<memory>
+
+1792332855 /home/henrique/faculdade/OpenGLChess/include/pieces/Rei.h
+	"utils/Object.h"
+	<vector>
+	<memory>
+
+1792332849 /home/henrique/faculdade/OpenGLChess/include/pieces/Rainha.h
+	"utils/Object.h"
+	<vector>
+	<memory>
+
+1757015408 /home/henrique/faculdade/OpenGLChess/include/utils/Texture.h
 	<GL/glew.h>
 	<string>
 
-1762216767 source:/home/henrique/faculdade/OpenGLChess/src/Application.cpp
+1792270983 source:/home/henrique/faculdade/OpenGLChess/src/Application.cpp
 	"Application.h"
 	<iostream>
 
-1792008642 source:/home/henrique/faculdade/OpenGLChess/src/Banrisul.cpp
-	"Banrisul.h"
-	"Cube.h"
+1792332882 source:/home/henrique/faculdade/OpenGLChess/src/pieces/Bispo.cpp
+	"pieces/Bispo.h"
+	"shapes/TroncoCone.h"
+	"shapes/Esfera.h"
 
-1760993895 source:/home/henrique/faculdade/OpenGLChess/src/Cube.cpp
-	"Cube.h"
+1792258424 /home/henrique/faculdade/OpenGLChess/include/shapes/TroncoCone.h
+	<GL/glew.h>
+	<glm/glm.hpp>
+	<glm/gtc/matrix_transform.hpp>
+	<vector>
+	"utils/Object.h"
+	"utils/Shader.h"
 
-1757014824 source:/home/henrique/faculdade/OpenGLChess/src/Mesh.cpp
-	"Mesh.h"
+1792257761 /home/henrique/faculdade/OpenGLChess/include/shapes/Esfera.h
+	<GL/glew.h>
+	<glm/glm.hpp>
+	<glm/gtc/matrix_transform.hpp>
+	<vector>
+	"utils/Object.h"
+	"utils/Shader.h"
 
-1757014811 /home/henrique/faculdade/OpenGLChess/include/Mesh.h
+1792332887 source:/home/henrique/faculdade/OpenGLChess/src/pieces/Cavalo.cpp
+	"pieces/Cavalo.h"
+	"shapes/TroncoCone.h"
+	"shapes/Cube.h"
+
+1792332892 source:/home/henrique/faculdade/OpenGLChess/src/pieces/Peao.cpp
+	"pieces/Peao.h"
+	"shapes/TroncoCone.h"
+	"shapes/Esfera.h"
+
+1792332902 source:/home/henrique/faculdade/OpenGLChess/src/pieces/Rainha.cpp
+	"pieces/Rainha.h"
+	"shapes/TroncoCone.h"
+	"shapes/Esfera.h"
+	"shapes/Cube.h"
+	<cmath>
+
+1792332909 source:/home/henrique/faculdade/OpenGLChess/src/pieces/Rei.cpp
+	"pieces/Rei.h"
+	"shapes/TroncoCone.h"
+	"shapes/Esfera.h"
+	"shapes/Cube.h"
+
+1792333439 source:/home/henrique/faculdade/OpenGLChess/src/pieces/Tabuleiro.cpp
+	"pieces/Tabuleiro.h"
+	"shapes/Cube.h"
+	<pieces/Peao.h>
+	<pieces/Cavalo.h>
+	<pieces/Torre.h>
+	<pieces/Bispo.h>
+	<pieces/Rei.h>
+	<pieces/Rainha.h>
+
+1792332920 source:/home/henrique/faculdade/OpenGLChess/src/pieces/Torre.cpp
+	"pieces/Torre.h"
+	"shapes/TroncoCone.h"
+	"shapes/Cube.h"
+	<cmath>
+
+1792255316 source:/home/henrique/faculdade/OpenGLChess/src/shapes/Cube.cpp
+	"shapes/Cube.h"
+
+1792257055 source:/home/henrique/faculdade/OpenGLChess/src/shapes/Esfera.cpp
+	"shapes/Esfera.h"
+	<cmath>
+
+1792256614 source:/home/henrique/faculdade/OpenGLChess/src/shapes/Prisma.cpp
+	"shapes/Prisma.h"
+
+1792256538 /home/henrique/faculdade/OpenGLChess/include/shapes/Prisma.h
+	"utils/Shader.h"
+	<glm/glm.hpp>
+	<glm/gtc/matrix_transform.hpp>
+	<utils/Object.h>
+
+1792259846 source:/home/henrique/faculdade/OpenGLChess/src/shapes/TroncoCone.cpp
+	"shapes/TroncoCone.h"
+	<cmath>
+
+1792256457 source:/home/henrique/faculdade/OpenGLChess/src/utils/Mesh.cpp
+	"utils/Mesh.h"
+
+1757014811 /home/henrique/faculdade/OpenGLChess/include/utils/Mesh.h
 	<GL/glew.h>
 
-1760993472 source:/home/henrique/faculdade/OpenGLChess/src/Object.cpp
-	"Object.h"
+1792331207 source:/home/henrique/faculdade/OpenGLChess/src/utils/Object.cpp
+	"utils/Object.h"
 	<glm/gtc/matrix_transform.hpp>
 	<glm/gtc/type_ptr.hpp>
 
-1762216816 source:/home/henrique/faculdade/OpenGLChess/src/Prisma.cpp
-	"Prisma.h"
+1792256584 source:/home/henrique/faculdade/OpenGLChess/src/utils/stb_image.cpp
+	"utils/stb_image.h"
 
-1761179410 /home/henrique/faculdade/OpenGLChess/include/Prisma.h
-	"Shader.h"
-	<glm/glm.hpp>
-	<glm/gtc/matrix_transform.hpp>
-	<Object.h>
-
-1603045934 source:/home/henrique/faculdade/OpenGLChess/src/stb_image.cpp
-	"stb_image.h"
-
-1603045863 /home/henrique/faculdade/OpenGLChess/include/stb_image.h
+1603045863 /home/henrique/faculdade/OpenGLChess/include/utils/stb_image.h
 	"stb_image.h"
 	<stdio.h>
 	<stdlib.h>
@@ -100,8 +202,8 @@
 	<intrin.h>
 	<arm_neon.h>
 
-1757015399 source:/home/henrique/faculdade/OpenGLChess/src/Texture.cpp
-	"Texture.h"
-	<stb_image.h>
+1792256487 source:/home/henrique/faculdade/OpenGLChess/src/utils/Texture.cpp
+	"utils/Texture.h"
+	<utils/stb_image.h>
 	<iostream>
 
