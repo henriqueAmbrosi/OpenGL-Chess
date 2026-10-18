@@ -1,5 +1,6 @@
 #include <GL/glew.h>
 #include <GLFW/glfw3.h>
+#include <glm/ext/matrix_transform.hpp>
 #include <glm/glm.hpp>
 #include <glm/gtc/matrix_transform.hpp>
 #include <glm/gtc/type_ptr.hpp>
@@ -15,6 +16,8 @@
 #include <pieces/Rainha.h>
 #include <utils/Texture.h>
 #include <iostream>
+
+#define cameraSpeed 0.1;
 
 int main() {
     // Cria janela e inicializa OpenGL
@@ -45,11 +48,33 @@ int main() {
     // Ativa depth test
     glEnable(GL_DEPTH_TEST);
 
+    glm::vec3 position = glm::vec3(0.f, 0.0f, 0.0f);
+
+
     // Loop principal
     while (!glfwWindowShouldClose(app.getWindow())) {
         // Processa input
-        if (glfwGetKey(app.getWindow(), GLFW_KEY_ESCAPE) == GLFW_PRESS)
+        if (glfwGetKey(app.getWindow(), GLFW_KEY_ESCAPE) == GLFW_PRESS) {
             glfwSetWindowShouldClose(app.getWindow(), true);
+        }
+        if (glfwGetKey(app.getWindow(), GLFW_KEY_W) == GLFW_PRESS) {
+            position.z += cameraSpeed;
+        }
+        if (glfwGetKey(app.getWindow(), GLFW_KEY_S) == GLFW_PRESS) {
+            position.z -= cameraSpeed;
+        }
+        if (glfwGetKey(app.getWindow(), GLFW_KEY_A) == GLFW_PRESS) {
+            position.x += cameraSpeed;
+        }
+        if (glfwGetKey(app.getWindow(), GLFW_KEY_D) == GLFW_PRESS) {
+            position.x -= cameraSpeed;
+        }
+        if (glfwGetKey(app.getWindow(), GLFW_KEY_SPACE) == GLFW_PRESS) {
+            position.y -= cameraSpeed;
+        }
+        if (glfwGetKey(app.getWindow(), GLFW_KEY_C) == GLFW_PRESS) {
+            position.y += cameraSpeed;
+        }
 
         // Limpa tela e depth buffer
         //glClearColor(0.1f, 0.1f, 0.2f, 1.0f);
@@ -62,8 +87,9 @@ int main() {
 
         glm::mat4 model = glm::mat4(1.0f);
         float angle = 20.0f;
-        model = glm::rotate(model, (angle * (float) glfwGetTime()) / 20, glm::vec3(0.0f, 0.3f, 0.0f));
+        // model = glm::rotate(model, (angle * (float) glfwGetTime()) / 20, glm::vec3(0.0f, 0.3f, 0.0f));
         //model = glm::rotate(model, -60.0f, glm::vec3(0.0f, 0.3f, 0.0f));
+        model = glm::translate(model, position);
 
         shader.setMat4("model", model);
 
@@ -83,29 +109,6 @@ int main() {
 
         p1.draw(shader, model);
 
-        // // Desenha cubos
-
-        // model = glm::rotate(model, (angle * (float) glfwGetTime()) / 20, glm::vec3(0.5f, -0.2f, 0.5f));
-        // shader.setMat4("model", model);
-        // cube2.draw(shader, model);
-
-        // model = glm::rotate(model, (angle * (float) glfwGetTime()) / 5, glm::vec3(1.5f, 4.2f, 0.1f));
-        // shader.setMat4("model", model);
-        // //cube3.draw(shader, model);
-
-        // model = glm::rotate(model, (-angle * (float) glfwGetTime()) / 40, glm::vec3(-0.8f, 2.1f, -2.0f));
-        // shader.setMat4("model", model);
-        // //cube4.draw(shader, model);
-
-        // model = glm::rotate(model, (angle * (float) glfwGetTime()) / 40, glm::vec3(-0.5f, -0.2f, 1.45f));
-        // shader.setMat4("model", model);
-        // //cube4.draw(shader, model);
-
-        // model = glm::mat4(1.0f);
-        // model = glm::rotate(model, (angle * (float) glfwGetTime()) / -40, glm::vec3(0.0f, 1.0f, 0.0f));
-        // //cube5.draw(shader, model);
-
-        // Swap buffers e eventos
         glfwSwapBuffers(app.getWindow());
         glfwPollEvents();
     }

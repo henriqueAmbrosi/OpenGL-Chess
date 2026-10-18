@@ -10,6 +10,12 @@ Application::~Application() {
 
 bool Application::init() {
 #if defined(__linux__)
+    // X11 via XWayland on a Wayland session: default GLX often routes to NVIDIA and
+    // fails (GLXBadFBConfig). Mesa/llvmpipe GLX works for GLX-based assignments.
+    if (std::getenv("WAYLAND_DISPLAY") && std::getenv("DISPLAY") &&
+        !std::getenv("__GLX_VENDOR_LIBRARY_NAME")) {
+        setenv("__GLX_VENDOR_LIBRARY_NAME", "mesa", 0);
+    }
     glfwInitHint(GLFW_PLATFORM, GLFW_PLATFORM_X11);
 #endif
     if (!glfwInit()) {
