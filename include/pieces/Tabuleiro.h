@@ -4,6 +4,7 @@
 #include "utils/Object.h"
 #include <vector>
 #include <memory>
+#include <glm/glm.hpp>
 
 class Tabuleiro : public Object {
 public:
@@ -17,6 +18,16 @@ public:
     void init();
     void draw(Shader &shader, glm::mat4 model = glm::mat4(1.0f)) override;
 
+    // Função utilitária para calcular o centro 3D da casa
+    glm::vec3 getPosicaoCasa(int coluna, int linha) const;
+
+    void setPeca(int coluna, int linha, std::unique_ptr<Object> peca);
+
+    bool moverPeca(int origemCol, int origemLin, int destinoCol, int destinoLin);
+
+    Object* getPecaNaCasa(int coluna, int linha) const;
+    bool estaOcupada(int coluna, int linha) const;
+
     float getTamanhoCasa() const { return tamanhoCasa; }
     float getTamanhoCentro() const { return tamanhoCentro; }
     float getAlturaBorda() const { return alturaBorda; }
@@ -28,9 +39,12 @@ private:
     float larguraBorda = 0.8f;   
     float alturaBorda = 0.3f;    
     
-    float tamanhoCasa = 1.0f;    
+    float tamanhoCasa = 1.0f; 
 
-    std::vector<std::unique_ptr<Object>> parts;
+    void inicializarPecas();
+
+    std::unique_ptr<Object> grid[8][8];
+
 };
 
 #endif // TABULEIRO_H

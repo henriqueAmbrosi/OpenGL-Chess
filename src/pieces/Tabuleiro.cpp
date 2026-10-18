@@ -1,5 +1,11 @@
 #include "pieces/Tabuleiro.h"
 #include "shapes/Cube.h"
+#include <pieces/Peao.h>
+#include <pieces/Cavalo.h>
+#include <pieces/Torre.h>
+#include <pieces/Bispo.h>
+#include <pieces/Rei.h>
+#include <pieces/Rainha.h>
 
 Tabuleiro::Tabuleiro(glm::vec3 pos, glm::vec3 rot, glm::vec3 scl, float angle)
     : Object(pos, rot, scl, angle) { init(); }
@@ -7,10 +13,64 @@ Tabuleiro::Tabuleiro(glm::vec3 pos, glm::vec3 rot, glm::vec3 scl, float angle)
 Tabuleiro::Tabuleiro(glm::vec3 pos, float angle)
     : Object(pos, glm::vec3(0.0f), glm::vec3(1.0f), angle) { init(); }
 
+void Tabuleiro::inicializarPecas(){
+    float escalaPeca = 0.75f; 
+    glm::vec3 corBranca = glm::vec3(0.9f, 0.9f, 0.85f);
+    glm::vec3 corPreta  = glm::vec3(0.2f, 0.15f, 0.1f);
+
+    auto setupBranca = [&](std::unique_ptr<Object>& slot, auto* pecaCriada) {
+        slot.reset(pecaCriada);
+        slot->scale = glm::vec3(escalaPeca);
+        slot->setCor(corBranca);
+        slot->setMaterialID(2);
+    };
+
+    auto setupPreta = [&](std::unique_ptr<Object>& slot, auto* pecaCriada) {
+        slot.reset(pecaCriada);
+        slot->scale = glm::vec3(escalaPeca);
+        slot->setCor(corPreta);
+        slot->setMaterialID(2);
+    };
+
+    // --- PEÇAS BRANCAS ---
+    setupBranca(grid[0][0], new Torre(getPosicaoCasa(0, 0), 0.0f));
+    setupBranca(grid[1][0], new Cavalo(getPosicaoCasa(1, 0), 0.0f));
+    setupBranca(grid[2][0], new Bispo(getPosicaoCasa(2, 0), 0.0f));
+    setupBranca(grid[3][0], new Rainha(getPosicaoCasa(3, 0), 0.0f));
+    setupBranca(grid[4][0], new Rei(getPosicaoCasa(4, 0), 0.0f));
+    setupBranca(grid[5][0], new Bispo(getPosicaoCasa(5, 0), 0.0f));
+    setupBranca(grid[6][0], new Cavalo(getPosicaoCasa(6, 0), 0.0f));
+    setupBranca(grid[7][0], new Torre(getPosicaoCasa(7, 0), 0.0f));
+
+    for (int i = 0; i < 8; ++i) {
+        setupBranca(grid[i][1], new Peao(getPosicaoCasa(i, 1), 0.0f));
+    }
+
+    // --- PEÇAS PRETAS ---
+    for (int i = 0; i < 8; ++i) {
+        setupPreta(grid[i][6], new Peao(getPosicaoCasa(i, 6), 0.0f));
+    }
+
+    setupPreta(grid[0][7], new Torre(getPosicaoCasa(0, 7), 0.0f));
+    setupPreta(grid[1][7], new Cavalo(getPosicaoCasa(1, 7), 0.0f));
+    setupPreta(grid[2][7], new Bispo(getPosicaoCasa(2, 7), 0.0f));
+    setupPreta(grid[3][7], new Rainha(getPosicaoCasa(3, 7), 0.0f));
+    setupPreta(grid[4][7], new Rei(getPosicaoCasa(4, 7), 0.0f));
+    setupPreta(grid[5][7], new Bispo(getPosicaoCasa(5, 7), 0.0f));
+    setupPreta(grid[6][7], new Cavalo(getPosicaoCasa(6, 7), 0.0f));
+    setupPreta(grid[7][7], new Torre(getPosicaoCasa(7, 7), 0.0f));
+}
+
 void Tabuleiro::init() {
     parts.clear();
 
     tamanhoCasa = tamanhoCentro / 8.0f;
+
+    for (int col = 0; col < 8; ++col) {
+        for (int lin = 0; lin < 8; ++lin) {
+            grid[col][lin] = nullptr;
+        }
+    }
 
     // 1. CUBO CENTRAL
     parts.push_back(std::make_unique<Cube>(
@@ -56,6 +116,50 @@ void Tabuleiro::init() {
         glm::vec3(larguraBorda, alturaBorda, tamanhoCentro),
         0.0f
     ));
+
+    inicializarPecas();
+}
+
+// Retorna as coordenadas locais da casa no tabuleiro
+glm::vec3 Tabuleiro::getPosicaoCasa(int coluna, int linha) const {
+    float offsetInicio = -3.5f * tamanhoCasa;
+    float localX = offsetInicio + (coluna * tamanhoCasa);
+    float localZ = offsetInicio + (linha * tamanhoCasa);
+    float localY = espessuraCentro;
+
+    return glm::vec3(localX, localY, localZ);
+}
+
+void Tabuleiro::setPeca(int coluna, int linha, std::unique_ptr<Object> peca) {
+    if (coluna >= 0 && coluna < 8 && linha >= 0 && linha < 8) {
+        grid[coluna][linha] = std::move(peca);
+    }
+}
+
+bool Tabuleiro::moverPeca(int origemCol, int origemLin, int destinoCol, int destinoLin) {
+    if (origemCol < 0 || origemCol >= 8 || origemLin < 0 || origemLin >= 8 ||
+        destinoCol < 0 || destinoCol >= 8 || destinoLin < 0 || destinoLin >= 8) {
+        return false;
+    }
+
+    if (grid[origemCol][origemLin] == nullptr) {
+        return false;
+    }
+
+    grid[destinoCol][destinoLin] = std::move(grid[origemCol][origemLin]);
+    grid[origemCol][origemLin] = nullptr;
+    return true;
+}
+
+Object* Tabuleiro::getPecaNaCasa(int coluna, int linha) const {
+    if (coluna >= 0 && coluna < 8 && linha >= 0 && linha < 8) {
+        return grid[coluna][linha].get();
+    }
+    return nullptr;
+}
+
+bool Tabuleiro::estaOcupada(int coluna, int linha) const {
+    return getPecaNaCasa(coluna, linha) != nullptr;
 }
 
 void Tabuleiro::draw(Shader &shader, glm::mat4 model) {
@@ -66,13 +170,23 @@ void Tabuleiro::draw(Shader &shader, glm::mat4 model) {
     
     if (parts.empty()) return;
 
-    // 1. Desenha o CUBO CENTRAL
+    // 1. Desenha o CUBO CENTRAL (Tabuleiro)
     shader.setInt("materialID", 0);
     parts[0]->draw(shader, model);
 
-    // 2. Desenha as BORDAS
+    // 2. Desenha as BORDAS (Tabuleiro)
     shader.setInt("materialID", 1);
     for (size_t i = 1; i < parts.size(); ++i) {
         parts[i]->draw(shader, model);
+    }
+
+    // 3. Desenha as PEÇAS
+    for (int col = 0; col < 8; ++col) {
+        for (int lin = 0; lin < 8; ++lin) {
+            Object* peca = grid[col][lin].get();
+            if (peca != nullptr) {
+                peca->draw(shader, model);
+            }
+        }
     }
 }

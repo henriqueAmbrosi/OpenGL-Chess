@@ -6,6 +6,7 @@
 #include <utils/Shader.h>
 #include <Application.h>
 #include <shapes/Cube.h>
+#include <pieces/Tabuleiro.h>
 #include <pieces/Peao.h>
 #include <pieces/Cavalo.h>
 #include <pieces/Torre.h>
@@ -25,8 +26,8 @@ int main() {
     shader.use();
 
     // Carrega texturas
-    Texture tex1("pedra-28.jpg");
-    Texture tex2("opengl.png");  // logo OpenGL com alpha
+    Texture tex1("textures/xadrez2x2.png");
+    Texture tex2("textures/madeira.png");
 
     shader.setInt("texture1", 0);
     shader.setInt("texture2", 1);
@@ -38,7 +39,7 @@ int main() {
     Cube cube5(glm::vec3(-4.0f, 0.0f, 0.0f));
 
 
-    Cavalo p1(glm::vec3(0.0f, -4.0f, 0.0f), 0.0f);
+    Tabuleiro p1(glm::vec3(0.0f, -4.0f, 0.0f), 0.0f);
     p1.scale = glm::vec3(2.5f, 2.5f, 2.5f);
 
     // Ativa depth test

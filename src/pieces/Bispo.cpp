@@ -46,14 +46,3 @@ void Bispo::init() {
         glm::vec3(0.0f, 1.95f, 0.0f), glm::vec3(0.0f, 1.0f, 0.0f), glm::vec3(0.18f, 0.18f, 0.18f), 0.0f, 0.5f
     ));
 }
-
-void Bispo::draw(Shader &shader, glm::mat4 model) {
-    model = glm::translate(model, position);
-    if (glm::length(rotation) > 0.0f) 
-        model = glm::rotate(model, glm::radians(angle), glm::normalize(rotation));
-    model = glm::scale(model, scale);
-    
-    for (auto &part : parts) {
-        part->draw(shader, model);
-    }
-}

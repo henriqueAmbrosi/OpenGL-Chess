@@ -70,16 +70,3 @@ void Peao::init() {
         0.5f    
     ));
 }
-
-void Peao::draw(Shader &shader, glm::mat4 model) {
-    model = glm::translate(model, position);
-
-    if (glm::length(rotation) > 0.0f)
-        model = glm::rotate(model, glm::radians(angle), glm::normalize(rotation));
-
-    model = glm::scale(model, scale);
-
-    for (auto &part : parts) {
-        part->draw(shader, model);
-    }
-}

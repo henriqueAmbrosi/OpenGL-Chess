@@ -15,12 +15,9 @@ public:
     Peao(glm::vec3 pos, glm::vec3 rot, glm::vec3 scl, float ang);
     Peao(glm::vec3 pos, float ang);
 
-    void init();
-    void draw(Shader &shader, glm::mat4 model);
-
 private:
+    void init();
 
-    std::vector<std::unique_ptr<Object>> parts;
 
 };
 

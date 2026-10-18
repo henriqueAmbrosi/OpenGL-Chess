@@ -44,22 +44,11 @@ void Rei::init() {
 
     // 7. HASTE VERTICAL DA CRUZ DO REI
     parts.push_back(std::make_unique<Cube>(
-        glm::vec3(0.0f, 2.33f, 0.0f), glm::vec3(0.0f, 1.0f, 0.0f), glm::vec3(0.1f, 0.35f, 0.1f), 0.0f
+        glm::vec3(0.0f, 2.28f, 0.0f), glm::vec3(0.0f, 1.0f, 0.0f), glm::vec3(0.1f, 0.35f, 0.1f), 0.0f
     ));
 
     // 8. HASTE HORIZONTAL DA CRUZ DO REI
     parts.push_back(std::make_unique<Cube>(
-        glm::vec3(0.0f, 2.34f, 0.0f), glm::vec3(0.0f, 1.0f, 0.0f), glm::vec3(0.35f, 0.1f, 0.1f), 0.0f
+        glm::vec3(0.0f, 2.29f, 0.0f), glm::vec3(0.0f, 1.0f, 0.0f), glm::vec3(0.35f, 0.1f, 0.1f), 0.0f
     ));
-}
-
-void Rei::draw(Shader &shader, glm::mat4 model) {
-    model = glm::translate(model, position);
-    if (glm::length(rotation) > 0.0f) 
-        model = glm::rotate(model, glm::radians(angle), glm::normalize(rotation));
-    model = glm::scale(model, scale);
-    
-    for (auto &part : parts) {
-        part->draw(shader, model);
-    }
 }

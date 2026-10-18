@@ -6,6 +6,7 @@ in vec2 TexCoord;
 uniform sampler2D texture1; // xadrez2x2.png
 uniform sampler2D texture2; // madeira.png
 uniform int materialID;
+uniform vec3 objectColor;
 
 void main() {
     if (materialID == 0) {
@@ -17,6 +18,7 @@ void main() {
         FragColor = texture(texture2, woodCoord);
     } 
     else {
-        FragColor = texture(texture2, TexCoord);
+        vec4 texColor = texture(texture2, TexCoord);
+        FragColor = texColor * vec4(objectColor, 1.0f);
     }
 }
