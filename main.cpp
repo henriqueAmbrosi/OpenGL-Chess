@@ -48,8 +48,12 @@ int main() {
     // Ativa depth test
     glEnable(GL_DEPTH_TEST);
 
-    glm::vec3 position = glm::vec3(0.f, 0.0f, 0.0f);
+    glm::vec3 position = glm::vec3(0.0f, 0.0f, 0.0f);
+    glm::vec2 rotation = glm::vec2(0.0f, 0.0f);
+    int xpos, ypos;
 
+    //wip
+    // glfwSetCursorPosCallback(app.window, mouse_callback);
 
     // Loop principal
     while (!glfwWindowShouldClose(app.getWindow())) {
@@ -115,3 +119,36 @@ int main() {
 
     return 0;
 }
+
+void mouse_callback(GLFWwindow* window, double xpos, double ypos)
+{
+    if (firstMouse)
+    {
+        lastX = xpos;
+        lastY = ypos;
+        firstMouse = false;
+    }
+  
+    float xoffset = xpos - lastX;
+    float yoffset = lastY - ypos; 
+    lastX = xpos;
+    lastY = ypos;
+
+    float sensitivity = 0.1f;
+    xoffset *= sensitivity;
+    yoffset *= sensitivity;
+
+    yaw   += xoffset;
+    pitch += yoffset;
+
+    if(pitch > 89.0f)
+        pitch = 89.0f;
+    if(pitch < -89.0f)
+        pitch = -89.0f;
+
+    glm::vec3 direction;
+    direction.x = cos(glm::radians(yaw)) * cos(glm::radians(pitch));
+    direction.y = sin(glm::radians(pitch));
+    direction.z = sin(glm::radians(yaw)) * cos(glm::radians(pitch));
+    cameraFront = glm::normalize(direction);
+}  

@@ -45,6 +45,7 @@ bool Application::init() {
     }
 
     glEnable(GL_DEPTH_TEST);
+    glfwSetInputMode(window, GLFW_CURSOR, GLFW_CURSOR_DISABLED);  
 
     std::cout << "OpenGL version: " << glGetString(GL_VERSION) << std::endl;
     return true;
