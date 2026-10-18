@@ -59,6 +59,14 @@ void Tabuleiro::inicializarPecas(){
     setupPreta(grid[5][7], new Bispo(getPosicaoCasa(5, 7), 0.0f));
     setupPreta(grid[6][7], new Cavalo(getPosicaoCasa(6, 7), 0.0f));
     setupPreta(grid[7][7], new Torre(getPosicaoCasa(7, 7), 0.0f));
+
+    Object* cavaloBranco = grid[1][0].get();
+    cavaloBranco->rotation = glm::vec3(0.0f, 1.0f, 0.0f);
+    cavaloBranco->angle = 180.0f;
+
+    cavaloBranco = grid[6][0].get();
+    cavaloBranco->rotation = glm::vec3(0.0f, 1.0f, 0.0f);
+    cavaloBranco->angle = 180.0f;
 }
 
 void Tabuleiro::init() {
