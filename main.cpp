@@ -49,11 +49,8 @@ int main() {
     glEnable(GL_DEPTH_TEST);
 
     glm::vec3 position = glm::vec3(0.0f, 0.0f, 0.0f);
-    glm::vec2 rotation = glm::vec2(0.0f, 0.0f);
-    int xpos, ypos;
 
-    //wip
-    // glfwSetCursorPosCallback(app.window, mouse_callback);
+    double xrot, yrot, xangle, yangle;
 
     // Loop principal
     while (!glfwWindowShouldClose(app.getWindow())) {
@@ -80,6 +77,11 @@ int main() {
             position.y += cameraSpeed;
         }
 
+        glfwGetCursorPos(app.window, &xrot, &yrot);
+        xangle += (xrot - 512) / 10;
+        yangle -= (yrot - 384) / 10;
+        // printf("x: %f | y: %f \n", xrot, yrot);
+
         // Limpa tela e depth buffer
         //glClearColor(0.1f, 0.1f, 0.2f, 1.0f);
         glClearColor(0.7f, 0.5f, 0.1f, 1.0f);
@@ -90,8 +92,10 @@ int main() {
         shader.use();
 
         glm::mat4 model = glm::mat4(1.0f);
-        float angle = 20.0f;
+        
         // model = glm::rotate(model, (angle * (float) glfwGetTime()) / 20, glm::vec3(0.0f, 0.3f, 0.0f));
+        model = glm::rotate(model, (float) (xangle/10.00), glm::vec3(0.0f, (float) xangle/10.0, 0.0f));
+        model = glm::rotate(model, (float) (yangle/10.00), glm::vec3(0.0f, 0.0f, (float) yangle/10.0));
         //model = glm::rotate(model, -60.0f, glm::vec3(0.0f, 0.3f, 0.0f));
         model = glm::translate(model, position);
 
@@ -113,42 +117,11 @@ int main() {
 
         p1.draw(shader, model);
 
+        glfwSetCursorPos(app.window, 1024/2, 768/2);
+
         glfwSwapBuffers(app.getWindow());
         glfwPollEvents();
     }
 
     return 0;
 }
-
-void mouse_callback(GLFWwindow* window, double xpos, double ypos)
-{
-    if (firstMouse)
-    {
-        lastX = xpos;
-        lastY = ypos;
-        firstMouse = false;
-    }
-  
-    float xoffset = xpos - lastX;
-    float yoffset = lastY - ypos; 
-    lastX = xpos;
-    lastY = ypos;
-
-    float sensitivity = 0.1f;
-    xoffset *= sensitivity;
-    yoffset *= sensitivity;
-
-    yaw   += xoffset;
-    pitch += yoffset;
-
-    if(pitch > 89.0f)
-        pitch = 89.0f;
-    if(pitch < -89.0f)
-        pitch = -89.0f;
-
-    glm::vec3 direction;
-    direction.x = cos(glm::radians(yaw)) * cos(glm::radians(pitch));
-    direction.y = sin(glm::radians(pitch));
-    direction.z = sin(glm::radians(yaw)) * cos(glm::radians(pitch));
-    cameraFront = glm::normalize(direction);
-}  
