@@ -54,27 +54,28 @@ int main() {
 
     // Loop principal
     while (!glfwWindowShouldClose(app.getWindow())) {
+        glm::vec3 pos = glm::vec3(0.0f, 0.0f, 0.0f);
         // Processa input
         if (glfwGetKey(app.getWindow(), GLFW_KEY_ESCAPE) == GLFW_PRESS) {
             glfwSetWindowShouldClose(app.getWindow(), true);
         }
         if (glfwGetKey(app.getWindow(), GLFW_KEY_W) == GLFW_PRESS) {
-            position.z += cameraSpeed;
+            pos.z += cameraSpeed;
         }
         if (glfwGetKey(app.getWindow(), GLFW_KEY_S) == GLFW_PRESS) {
-            position.z -= cameraSpeed;
+            pos.z -= cameraSpeed;
         }
         if (glfwGetKey(app.getWindow(), GLFW_KEY_A) == GLFW_PRESS) {
-            position.x += cameraSpeed;
+            pos.x += cameraSpeed;
         }
         if (glfwGetKey(app.getWindow(), GLFW_KEY_D) == GLFW_PRESS) {
-            position.x -= cameraSpeed;
+            pos.x -= cameraSpeed;
         }
         if (glfwGetKey(app.getWindow(), GLFW_KEY_SPACE) == GLFW_PRESS) {
-            position.y -= cameraSpeed;
+            pos.y -= cameraSpeed;
         }
         if (glfwGetKey(app.getWindow(), GLFW_KEY_C) == GLFW_PRESS) {
-            position.y += cameraSpeed;
+            pos.y += cameraSpeed;
         }
 
         glfwGetCursorPos(app.window, &xrot, &yrot);
@@ -97,6 +98,8 @@ int main() {
         model = glm::rotate(model, (float) (xangle/10.00), glm::vec3(0.0f, (float) xangle/10.0, 0.0f));
         model = glm::rotate(model, (float) (yangle/10.00), glm::vec3(0.0f, 0.0f, (float) yangle/10.0));
         //model = glm::rotate(model, -60.0f, glm::vec3(0.0f, 0.3f, 0.0f));
+        position += glm::vec3(glm::vec4(pos, 1.0f)  * model);
+
         model = glm::translate(model, position);
 
         shader.setMat4("model", model);
