@@ -4,6 +4,7 @@
 #include <glm/glm.hpp>
 #include <glm/gtc/matrix_transform.hpp>
 #include <glm/gtc/type_ptr.hpp>
+#include <glm/trigonometric.hpp>
 #include <utils/Shader.h>
 #include <Application.h>
 #include <shapes/Cube.h>
@@ -18,6 +19,7 @@
 #include <iostream>
 
 #define cameraSpeed 0.1;
+#define senseFactor 15;
 
 int main() {
     // Cria janela e inicializa OpenGL
@@ -50,7 +52,7 @@ int main() {
 
     glm::vec3 position = glm::vec3(0.0f, 0.0f, 0.0f);
 
-    double xrot, yrot, xangle, yangle;
+    double xrot, yrot, xangle, yangle, zrot, zangle;
 
     // Loop principal
     while (!glfwWindowShouldClose(app.getWindow())) {
@@ -77,10 +79,16 @@ int main() {
         if (glfwGetKey(app.getWindow(), GLFW_KEY_C) == GLFW_PRESS) {
             pos.y += cameraSpeed;
         }
+        if (glfwGetKey(app.getWindow(), GLFW_KEY_Q) == GLFW_PRESS) {
+            zrot += 1;
+        }
+        if (glfwGetKey(app.getWindow(), GLFW_KEY_E) == GLFW_PRESS) {
+            zrot -= 1;
+        }
 
         glfwGetCursorPos(app.window, &xrot, &yrot);
-        xangle += (xrot - 512) / 10;
-        yangle -= (yrot - 384) / 10;
+        xangle += (xrot - 512) / senseFactor;
+        yangle -= (yrot - 384) / senseFactor;
         // printf("x: %f | y: %f \n", xrot, yrot);
 
         // Limpa tela e depth buffer
@@ -95,8 +103,9 @@ int main() {
         glm::mat4 model = glm::mat4(1.0f);
         
         // model = glm::rotate(model, (angle * (float) glfwGetTime()) / 20, glm::vec3(0.0f, 0.3f, 0.0f));
-        model = glm::rotate(model, (float) (xangle/10.00), glm::vec3(0.0f, (float) xangle/10.0, 0.0f));
-        model = glm::rotate(model, (float) (yangle/10.00), glm::vec3(0.0f, 0.0f, (float) yangle/10.0));
+        model = glm::rotate(model, (float) glm::radians(zrot), glm::vec3(0.0f, 0.0f, 1.0f));
+        model = glm::rotate(model, (float) glm::radians(xangle), glm::vec3(0.0f, 1.0f, 0.0f));
+        model = glm::rotate(model, (float) glm::radians(yangle), glm::vec3(0.0f, 0.0f, 1.0f));
         //model = glm::rotate(model, -60.0f, glm::vec3(0.0f, 0.3f, 0.0f));
         position += glm::vec3(glm::vec4(pos, 1.0f)  * model);
 
