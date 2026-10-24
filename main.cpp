@@ -53,10 +53,12 @@ int main() {
     glm::vec3 position = glm::vec3(0.0f, 0.0f, 0.0f);
 
     double xrot, yrot, xangle, yangle, zrot, zangle;
-
+        
     // Loop principal
     while (!glfwWindowShouldClose(app.getWindow())) {
+        glfwSetInputMode(app.getWindow(), GLFW_CURSOR, GLFW_CURSOR_DISABLED);
         glm::vec3 pos = glm::vec3(0.0f, 0.0f, 0.0f);
+
         // Processa input
         if (glfwGetKey(app.getWindow(), GLFW_KEY_ESCAPE) == GLFW_PRESS) {
             glfwSetWindowShouldClose(app.getWindow(), true);
@@ -87,8 +89,14 @@ int main() {
         }
 
         glfwGetCursorPos(app.window, &xrot, &yrot);
-        xangle += (xrot - 512) / senseFactor;
-        yangle -= (yrot - 384) / senseFactor;
+
+        if (glfwGetKey(app.getWindow(), GLFW_KEY_LEFT_SHIFT) != GLFW_PRESS) {
+            xangle += (xrot - 512) / senseFactor;
+            yangle -= (yrot - 384) / senseFactor;
+            glfwSetCursorPos(app.window, 1024/2, 768/2);
+        } else {
+            glfwSetInputMode(app.getWindow(), GLFW_CURSOR, GLFW_CURSOR_NORMAL);
+        }
         // printf("x: %f | y: %f \n", xrot, yrot);
 
         // Limpa tela e depth buffer
@@ -129,7 +137,6 @@ int main() {
 
         p1.draw(shader, model);
 
-        glfwSetCursorPos(app.window, 1024/2, 768/2);
 
         glfwSwapBuffers(app.getWindow());
         glfwPollEvents();
