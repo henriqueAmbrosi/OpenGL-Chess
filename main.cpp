@@ -21,6 +21,21 @@
 #define cameraSpeed 0.1;
 #define senseFactor 15;
 
+double x, y;
+
+void mouse_button_callback(GLFWwindow* window, int button, int action, int mods) {
+    if (button == GLFW_MOUSE_BUTTON_LEFT && action == GLFW_PRESS) {
+        glfwGetCursorPos(window, &x, &y);
+    }
+}
+
+bool intersectPlane(const glm::vec3& ro, const glm::vec3& rd,
+    float planeY, float& t) {
+    if (std::abs(rd.y) < 1e-6f) return false;
+    t = (planeY - ro.y) / rd.y;
+    return t >= 0.0f;
+}
+
 int main() {
     // Cria janela e inicializa OpenGL
     Application app(1024, 768, "Chess");
@@ -52,12 +67,14 @@ int main() {
 
     glm::vec3 position = glm::vec3(0.0f, 0.0f, 0.0f);
 
-    double xrot, yrot, xangle, yangle, zrot, zangle;
+    double xrot, yrot, xangle, yangle, zrot;
+    glfwSetMouseButtonCallback(app.getWindow(), mouse_button_callback);
         
     // Loop principal
     while (!glfwWindowShouldClose(app.getWindow())) {
         glfwSetInputMode(app.getWindow(), GLFW_CURSOR, GLFW_CURSOR_DISABLED);
         glm::vec3 pos = glm::vec3(0.0f, 0.0f, 0.0f);
+        GLdouble worldX, worldY, worldZ;
 
         // Processa input
         if (glfwGetKey(app.getWindow(), GLFW_KEY_ESCAPE) == GLFW_PRESS) {
@@ -123,11 +140,26 @@ int main() {
 
         // Configura view e projection
         glm::mat4 projection = glm::perspective(glm::radians(45.0f),
-                                                800.0f / 600.0f,
+                                                1024.0f / 768.0f,
                                                 0.1f, 100.0f);
         glm::mat4 view = glm::translate(glm::mat4(1.0f), glm::vec3(0.0f, -0.0f, -12.0f));
         shader.setMat4("projection", projection);
         shader.setMat4("view", view);
+
+        int w, h;
+        glfwGetFramebufferSize(app.getWindow(), &w, &h);
+        // OpenGL: (0,0) is bottom-left; GLFW cursor is top-left
+        float xx = (2.0f * static_cast<float>(x)) / w - 1.0f;
+        float yy = 1.0f - (2.0f * static_cast<float>(y)) / h;
+        glm::mat4 invVP = glm::inverse(projection * view);
+        glm::vec4 nearPoint = invVP * glm::vec4(xx, yy, -1.0f, 1.0f);
+        glm::vec4 farPoint  = invVP * glm::vec4(xx, yy,  1.0f, 1.0f);
+        nearPoint /= nearPoint.w;
+        farPoint  /= farPoint.w;
+        glm::vec3 rayOrigin = glm::vec3(nearPoint);
+        glm::vec3 ray = glm::normalize(glm::vec3(farPoint - nearPoint));
+
+        p1.handleIntersectionLogic(rayOrigin, ray, model);
 
         // Bind texturas
         tex1.bind(0);

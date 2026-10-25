@@ -13,6 +13,9 @@ Tabuleiro::Tabuleiro(glm::vec3 pos, glm::vec3 rot, glm::vec3 scl, float angle)
 Tabuleiro::Tabuleiro(glm::vec3 pos, float angle)
     : Object(pos, glm::vec3(0.0f), glm::vec3(1.0f), angle) { init(); }
 
+int selectedCol = -1;
+int selectedLin = -1;
+
 void Tabuleiro::inicializarPecas(){
     float escalaPeca = 0.75f; 
     glm::vec3 corBranca = glm::vec3(0.9f, 0.9f, 0.85f);
@@ -67,6 +70,28 @@ void Tabuleiro::inicializarPecas(){
     cavaloBranco = grid[6][0].get();
     cavaloBranco->rotation = glm::vec3(0.0f, 1.0f, 0.0f);
     cavaloBranco->angle = 180.0f;
+}
+
+bool Tabuleiro::handleIntersectionLogic(const glm::vec3& rayOriginWorld, const glm::vec3& rayDirWorld, const glm::mat4& model) {
+        int outCol, outLin;
+        glm::mat4 inv = glm::inverse(model);
+        auto ro = glm::vec3(inv * glm::vec4(rayOriginWorld, 1));
+        auto rd = normalize(glm::vec3(inv * glm::vec4(rayDirWorld, 0)));
+
+        float t;
+        if (std::abs(rd.y) < 1e-6f) return false;
+        t = (espessuraCentro - ro.y) / rd.y;
+        if (t < 0) return false;
+        glm::vec3 hit = ro + rd * t;
+
+        float offset = -3.5f * tamanhoCasa;
+        int col = (int)glm::round((hit.x - offset) / tamanhoCasa);
+        int lin = (int)glm::round((hit.z - offset) / tamanhoCasa);
+        if (col < 0 || col > 7 || lin < 0 || lin > 7) return false;
+        if (!getPecaNaCasa(col, lin)) return false;  // piece only
+        outCol = col; outLin = lin;
+        printf("%d %d\n", outCol, outLin);
+        return true;
 }
 
 void Tabuleiro::init() {

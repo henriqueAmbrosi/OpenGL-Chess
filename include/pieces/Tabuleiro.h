@@ -32,6 +32,8 @@ public:
     float getTamanhoCentro() const { return tamanhoCentro; }
     float getAlturaBorda() const { return alturaBorda; }
 
+    bool handleIntersectionLogic(const glm::vec3& rayOriginWorld, const glm::vec3& rayDirWorld, const glm::mat4& sceneModel);
+
 private:
     float tamanhoCentro = 8.0f;
     float espessuraCentro = 0.2f;
