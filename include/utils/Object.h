@@ -1,6 +1,7 @@
 #ifndef OBJECT_H
 #define OBJECT_H
 
+#include <glm/ext/vector_float3.hpp>
 #include <glm/glm.hpp>
 #include <glm/gtc/matrix_transform.hpp>
 #include <vector>
@@ -25,6 +26,8 @@ public:
 
     void setMaterialID(int id) { materialID = id; }
     int getMaterialID() const { return materialID; }
+    void setPosition(glm::vec3 position);
+
 protected:
     glm::vec3 cor = glm::vec3(1.0f);
     int materialID = 2;

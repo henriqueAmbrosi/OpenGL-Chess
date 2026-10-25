@@ -23,7 +23,7 @@ public:
 
     void setPeca(int coluna, int linha, std::unique_ptr<Object> peca);
 
-    bool moverPeca(int origemCol, int origemLin, int destinoCol, int destinoLin);
+    void movePiece(int x, int y);
 
     Object* getPecaNaCasa(int coluna, int linha) const;
     bool estaOcupada(int coluna, int linha) const;
@@ -32,9 +32,13 @@ public:
     float getTamanhoCentro() const { return tamanhoCentro; }
     float getAlturaBorda() const { return alturaBorda; }
 
-    bool handleIntersectionLogic(const glm::vec3& rayOriginWorld, const glm::vec3& rayDirWorld, const glm::mat4& sceneModel);
+    void selectPiece(const glm::vec3& rayOriginWorld, const glm::vec3& rayDirWorld, const glm::mat4& sceneModel);
+    bool hasSelectedPiece();
+    void movePiece(const glm::vec3& rayOriginWorld, const glm::vec3& rayDirWorld, const glm::mat4& model);
 
 private:
+    bool moverPeca(int origemCol, int origemLin, int destinoCol, int destinoLin);
+
     float tamanhoCentro = 8.0f;
     float espessuraCentro = 0.2f;
     
@@ -46,6 +50,9 @@ private:
     void inicializarPecas();
 
     std::unique_ptr<Object> grid[8][8];
+    Object* selectedPiece;
+
+    int selectedCol, selectedLine;
 
 };
 

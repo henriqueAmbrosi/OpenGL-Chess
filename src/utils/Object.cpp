@@ -1,4 +1,5 @@
 #include "utils/Object.h"
+#include <glm/ext/vector_float3.hpp>
 #include <glm/gtc/matrix_transform.hpp>  // se usar glm::rotate, glm::translate etc.
 #include <glm/gtc/type_ptr.hpp>
 
@@ -10,6 +11,10 @@ Object::Object(glm::vec3 pos, glm::vec3 rot, glm::vec3 scl, float angle)
     : position(pos), rotation(rot), scale(scl), angle(angle)
 {
     // construtor básico — inicializa os valores recebidos
+}
+
+void Object::setPosition(glm::vec3 pos) {
+    position = pos;
 }
 
 void Object::draw(Shader &shader, glm::mat4 parentModel) {

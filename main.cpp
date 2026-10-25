@@ -1,9 +1,11 @@
 #include <GL/glew.h>
 #include <GLFW/glfw3.h>
+#include <cstdio>
 #include <glm/ext/matrix_transform.hpp>
 #include <glm/glm.hpp>
 #include <glm/gtc/matrix_transform.hpp>
 #include <glm/gtc/type_ptr.hpp>
+#include <glm/matrix.hpp>
 #include <glm/trigonometric.hpp>
 #include <utils/Shader.h>
 #include <Application.h>
@@ -22,12 +24,6 @@
 #define senseFactor 15;
 
 double x, y;
-
-void mouse_button_callback(GLFWwindow* window, int button, int action, int mods) {
-    if (button == GLFW_MOUSE_BUTTON_LEFT && action == GLFW_PRESS) {
-        glfwGetCursorPos(window, &x, &y);
-    }
-}
 
 bool intersectPlane(const glm::vec3& ro, const glm::vec3& rd,
     float planeY, float& t) {
@@ -67,9 +63,7 @@ int main() {
 
     glm::vec3 position = glm::vec3(0.0f, 0.0f, 0.0f);
 
-    double xrot, yrot, xangle, yangle, zrot;
-    glfwSetMouseButtonCallback(app.getWindow(), mouse_button_callback);
-        
+    double xrot, yrot, xangle, yangle, zrot;        
     // Loop principal
     while (!glfwWindowShouldClose(app.getWindow())) {
         glfwSetInputMode(app.getWindow(), GLFW_CURSOR, GLFW_CURSOR_DISABLED);
@@ -133,7 +127,7 @@ int main() {
         model = glm::rotate(model, (float) glm::radians(yangle), glm::vec3(0.0f, 0.0f, 1.0f));
         //model = glm::rotate(model, -60.0f, glm::vec3(0.0f, 0.3f, 0.0f));
         position += glm::vec3(glm::vec4(pos, 1.0f)  * model);
-
+        glm::mat4 untranslatedModel = glm::mat4(model);
         model = glm::translate(model, position);
 
         shader.setMat4("model", model);
@@ -149,8 +143,8 @@ int main() {
         int w, h;
         glfwGetFramebufferSize(app.getWindow(), &w, &h);
         // OpenGL: (0,0) is bottom-left; GLFW cursor is top-left
-        float xx = (2.0f * static_cast<float>(x)) / w - 1.0f;
-        float yy = 1.0f - (2.0f * static_cast<float>(y)) / h;
+        float xx = (2.0f * static_cast<float>(xrot)) / w - 1.0f;
+        float yy = 1.0f - (2.0f * static_cast<float>(yrot)) / h;
         glm::mat4 invVP = glm::inverse(projection * view);
         glm::vec4 nearPoint = invVP * glm::vec4(xx, yy, -1.0f, 1.0f);
         glm::vec4 farPoint  = invVP * glm::vec4(xx, yy,  1.0f, 1.0f);
@@ -159,7 +153,14 @@ int main() {
         glm::vec3 rayOrigin = glm::vec3(nearPoint);
         glm::vec3 ray = glm::normalize(glm::vec3(farPoint - nearPoint));
 
-        p1.handleIntersectionLogic(rayOrigin, ray, model);
+        if (glfwGetMouseButton(app.getWindow(), GLFW_MOUSE_BUTTON_LEFT) == GLFW_PRESS && !p1.hasSelectedPiece()) {
+            printf("Selecting piece\n");
+            p1.selectPiece(rayOrigin, ray, untranslatedModel);
+        }
+
+        if (p1.hasSelectedPiece() && glfwGetMouseButton(app.getWindow(), GLFW_MOUSE_BUTTON_LEFT) != GLFW_PRESS) {
+            p1.movePiece(rayOrigin, ray, untranslatedModel);
+        }
 
         // Bind texturas
         tex1.bind(0);
