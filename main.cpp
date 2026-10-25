@@ -93,10 +93,10 @@ int main() {
             pos.y += cameraSpeed;
         }
         if (glfwGetKey(app.getWindow(), GLFW_KEY_Q) == GLFW_PRESS) {
-            zrot += 1;
+            zrot -= 1;
         }
         if (glfwGetKey(app.getWindow(), GLFW_KEY_E) == GLFW_PRESS) {
-            zrot -= 1;
+            zrot += 1;
         }
 
         glfwGetCursorPos(app.window, &xrot, &yrot);
