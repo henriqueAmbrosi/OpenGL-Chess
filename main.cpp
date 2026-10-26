@@ -66,7 +66,6 @@ int main() {
     double xrot, yrot, xangle, yangle, zrot;        
     // Loop principal
     while (!glfwWindowShouldClose(app.getWindow())) {
-        glfwSetInputMode(app.getWindow(), GLFW_CURSOR, GLFW_CURSOR_DISABLED);
         glm::vec3 pos = glm::vec3(0.0f, 0.0f, 0.0f);
         GLdouble worldX, worldY, worldZ;
 
@@ -105,6 +104,7 @@ int main() {
             xangle += (xrot - 512) / senseFactor;
             yangle -= (yrot - 384) / senseFactor;
             glfwSetCursorPos(app.window, 1024/2, 768/2);
+            glfwSetInputMode(app.getWindow(), GLFW_CURSOR, GLFW_CURSOR_DISABLED);
         } else {
             glfwSetInputMode(app.getWindow(), GLFW_CURSOR, GLFW_CURSOR_NORMAL);
         }
