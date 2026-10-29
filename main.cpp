@@ -159,26 +159,13 @@ int main() {
         shader.setMat4("projection", projection);
         shader.setMat4("view", view);
 
-        int w, h;
-        glfwGetFramebufferSize(app.getWindow(), &w, &h);
-        // OpenGL: (0,0) is bottom-left; GLFW cursor is top-left
-        float xx = (2.0f * static_cast<float>(xrot)) / w - 1.0f;
-        float yy = 1.0f - (2.0f * static_cast<float>(yrot)) / h;
-        glm::mat4 invVP = glm::inverse(projection * view);
-        glm::vec4 nearPoint = invVP * glm::vec4(xx, yy, -1.0f, 1.0f);
-        glm::vec4 farPoint  = invVP * glm::vec4(xx, yy,  1.0f, 1.0f);
-        nearPoint /= nearPoint.w;
-        farPoint  /= farPoint.w;
-        glm::vec3 rayOrigin = glm::vec3(nearPoint);
-        glm::vec3 ray = glm::normalize(glm::vec3(farPoint - nearPoint));
-
         if (glfwGetMouseButton(app.getWindow(), GLFW_MOUSE_BUTTON_LEFT) == GLFW_PRESS && !p1.hasSelectedPiece()) {
             printf("Selecting piece\n");
-            p1.selectPiece(rayOrigin, ray, untranslatedModel);
+            p1.selectPiece(position, cameraFront, model);
         }
 
         if (p1.hasSelectedPiece() && glfwGetMouseButton(app.getWindow(), GLFW_MOUSE_BUTTON_LEFT) != GLFW_PRESS) {
-            p1.movePiece(rayOrigin, ray, untranslatedModel);
+            p1.movePiece(position, cameraFront, model);
         }
 
         // Bind texturas
