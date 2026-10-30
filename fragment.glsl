@@ -7,6 +7,7 @@ uniform sampler2D texture1; // xadrez2x2.png
 uniform sampler2D texture2; // madeira.png
 uniform int materialID;
 uniform vec3 objectColor;
+uniform int isSpecial;
 
 void main() {
     if (materialID == 0) {
@@ -20,5 +21,9 @@ void main() {
     else {
         vec4 texColor = texture(texture2, TexCoord);
         FragColor = texColor * vec4(objectColor, 1.0f);
+    }
+
+    if (isSpecial != 0) {
+        FragColor = mix(texture(texture2, TexCoord), vec4(0.0f, 1.0f, 0.0f, 1.0f), 0.2f);
     }
 }

@@ -112,14 +112,10 @@ int main() {
 
         glfwGetCursorPos(app.window, &xrot, &yrot);
 
-        if (glfwGetKey(app.getWindow(), GLFW_KEY_LEFT_SHIFT) != GLFW_PRESS) {
-            xangle = (xrot - 512) / senseFactor;
-            yangle = -(yrot - 384) / senseFactor;
-            glfwSetCursorPos(app.window, 1024/2, 768/2);
-            glfwSetInputMode(app.getWindow(), GLFW_CURSOR, GLFW_CURSOR_DISABLED);
-        } else {
-            glfwSetInputMode(app.getWindow(), GLFW_CURSOR, GLFW_CURSOR_NORMAL);
-        }
+        xangle = (xrot - 512) / senseFactor;
+        yangle = -(yrot - 384) / senseFactor;
+        glfwSetCursorPos(app.window, 1024/2, 768/2);
+
         // printf("x: %f | y: %f \n", xrot, yrot);
 
         // Limpa tela e depth buffer
@@ -160,7 +156,6 @@ int main() {
         shader.setMat4("view", view);
 
         if (glfwGetMouseButton(app.getWindow(), GLFW_MOUSE_BUTTON_LEFT) == GLFW_PRESS && !p1.hasSelectedPiece()) {
-            printf("Selecting piece\n");
             p1.selectPiece(position, cameraFront, model);
         }
 

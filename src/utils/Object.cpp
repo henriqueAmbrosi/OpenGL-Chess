@@ -27,6 +27,7 @@ void Object::draw(Shader &shader, glm::mat4 parentModel) {
 
     shader.setInt("materialID", materialID);
     shader.setVec3("objectColor", cor);
+    shader.setInt("isSpecial", isSpecial);
 
     for (auto& part : parts) {
         part->draw(shader, model);

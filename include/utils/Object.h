@@ -14,6 +14,7 @@ public:
     glm::vec3 rotation;
     glm::vec3 scale;
     float angle;
+    int isSpecial = 0;
 
     Object();
     Object(glm::vec3 pos, glm::vec3 rot, glm::vec3 scl, float ang);

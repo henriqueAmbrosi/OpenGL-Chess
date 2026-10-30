@@ -88,6 +88,9 @@ void Tabuleiro::selectPiece(const glm::vec3& rayOriginWorld, const glm::vec3& ra
     if (selectedCol < 0 || selectedCol > 7 || selectedLine < 0 || selectedLine > 7) return;
 
     selectedPiece = getPecaNaCasa(selectedCol, selectedLine);
+    if (selectedPiece != nullptr) {
+        selectedPiece->isSpecial = 1;
+    }
     printf("selected col: %d line: %d\n", selectedCol, selectedLine);
 }
 
@@ -109,6 +112,7 @@ void Tabuleiro::movePiece(const glm::vec3& rayOriginWorld, const glm::vec3& rayD
 
     printf("moving to col: %d line: %d\n", col, lin);
     moverPeca(selectedCol, selectedLine, col, lin);
+    selectedPiece->isSpecial = 0;
     selectedPiece = nullptr;
 }
 
