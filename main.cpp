@@ -73,9 +73,12 @@ int main() {
     Application app(1024, 768, "Chess");
     if (!app.init()) return -1;
 
-    // Shader
+    // Shader tabuleiro e peças
     Shader shader("vertex.glsl", "fragment.glsl");
     shader.use();
+
+    // Shader 2D para a cruz
+    Shader cursorShader("cursor_vertex.glsl", "cursor_fragment.glsl");
 
     // Carrega texturas
     Texture tex1("textures/xadrez2x2.png");
@@ -96,6 +99,26 @@ int main() {
 
     // Ativa depth test
     glEnable(GL_DEPTH_TEST);
+
+    // Configuração dos vértices do ponteiro
+    float crosshairVertices[] = {
+        502.0f, 384.0f,  522.0f, 384.0f, // Linha horizontal
+        512.0f, 374.0f,  512.0f, 394.0f  // Linha vertical
+    };
+
+    unsigned int crosshairVAO, crosshairVBO;
+    glGenVertexArrays(1, &crosshairVAO);
+    glGenBuffers(1, &crosshairVBO);
+
+    glBindVertexArray(crosshairVAO);
+    glBindBuffer(GL_ARRAY_BUFFER, crosshairVBO);
+    glBufferData(GL_ARRAY_BUFFER, sizeof(crosshairVertices), crosshairVertices, GL_STATIC_DRAW);
+
+    glVertexAttribPointer(0, 2, GL_FLOAT, GL_FALSE, 2 * sizeof(float), (void*)0);
+    glEnableVertexAttribArray(0);
+
+    glBindBuffer(GL_ARRAY_BUFFER, 0);
+    glBindVertexArray(0);
 
     glm::vec3 position = glm::vec3(0.0f, 0.0f, 0.0f);
 
@@ -167,9 +190,23 @@ int main() {
         tex1.bind(0);
         tex2.bind(1);
 
-        // Desenha logo banrisul
+        // Desenha tabuleiro
 
         p1.draw(shader, model);
+
+        // Ponteiro
+        glDisable(GL_DEPTH_TEST);
+        
+        cursorShader.use();
+        glm::mat4 orthoProjection = glm::ortho(0.0f, 1024.0f, 0.0f, 768.0f, -1.0f, 1.0f);
+        cursorShader.setMat4("projection", orthoProjection);
+
+        glBindVertexArray(crosshairVAO);
+        glLineWidth(2.0f);
+        glDrawArrays(GL_LINES, 0, 4);
+        glBindVertexArray(0);
+        
+        glEnable(GL_DEPTH_TEST);
 
 
         glfwSwapBuffers(app.getWindow());
