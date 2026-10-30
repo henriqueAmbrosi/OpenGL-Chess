@@ -91,10 +91,11 @@ void Tabuleiro::selectPiece(const glm::vec3& rayOriginWorld, const glm::vec3& ra
     if (selectedPiece != nullptr) {
         selectedPiece->isSpecial = 1;
     }
-    printf("selected col: %d line: %d\n", selectedCol, selectedLine);
 }
 
 void Tabuleiro::movePiece(const glm::vec3& rayOriginWorld, const glm::vec3& rayDirWorld, const glm::mat4& model) {
+    if (selectedPiece == nullptr) return;
+
     glm::mat4 inv = glm::inverse(model);
     auto ro = glm::vec3(inv * glm::vec4(rayOriginWorld, 1));
     auto rd = normalize(glm::vec3(inv * glm::vec4(rayDirWorld, 0)));
@@ -111,8 +112,12 @@ void Tabuleiro::movePiece(const glm::vec3& rayOriginWorld, const glm::vec3& rayD
     if (col < 0 || col > 7 || lin < 0 || lin > 7) return;
 
     printf("moving to col: %d line: %d\n", col, lin);
-    moverPeca(selectedCol, selectedLine, col, lin);
-    selectedPiece->isSpecial = 0;
+    
+    if (moverPeca(selectedCol, selectedLine, col, lin)) {
+        if (selectedPiece != nullptr) {
+            selectedPiece->isSpecial = 0;
+        }
+    }
     selectedPiece = nullptr;
 }
 
@@ -199,6 +204,10 @@ bool Tabuleiro::moverPeca(int origemCol, int origemLin, int destinoCol, int dest
 
     if (grid[origemCol][origemLin] == nullptr) {
         return false;
+    }
+
+    if (origemCol == destinoCol && origemLin == destinoLin) {
+        return true;
     }
 
     (*grid[origemCol][origemLin]).setPosition(getPosicaoCasa(destinoCol, destinoLin));
