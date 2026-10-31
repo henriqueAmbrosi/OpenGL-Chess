@@ -13,36 +13,36 @@ void Bispo::init() {
 
     // 1. BASE INFERIOR
     parts.push_back(std::make_unique<TroncoCone>(
-        glm::vec3(0.0f, 0.1f, 0.0f), glm::vec3(0.0f, 1.0f, 0.0f), glm::vec3(1.0f), 0.0f, 0.6f, 0.5f, 0.2f
+        glm::vec3(0.0f, 0.05f, 0.0f), glm::vec3(0.0f, 1.0f, 0.0f), glm::vec3(1.0f), 0.0f, 0.27f, 0.23f, 0.09f
     ));
 
     // 2. MOLDURA DA BASE
     parts.push_back(std::make_unique<TroncoCone>(
-        glm::vec3(0.0f, 0.25f, 0.0f), glm::vec3(0.0f, 1.0f, 0.0f), glm::vec3(1.0f), 0.0f, 0.5f, 0.45f, 0.1f
+        glm::vec3(0.0f, 0.11f, 0.0f), glm::vec3(0.0f, 1.0f, 0.0f), glm::vec3(1.0f), 0.0f, 0.23f, 0.20f, 0.05f
     ));
 
     // 3. CORPO DO BISPO
     parts.push_back(std::make_unique<TroncoCone>(
-        glm::vec3(0.0f, 0.7f, 0.0f), glm::vec3(0.0f, 1.0f, 0.0f), glm::vec3(1.0f), 0.0f, 0.42f, 0.22f, 0.8f
+        glm::vec3(0.0f, 0.32f, 0.0f), glm::vec3(0.0f, 1.0f, 0.0f), glm::vec3(1.0f), 0.0f, 0.19f, 0.10f, 0.36f
     ));
 
     // 4. PRIMEIRO ANEL DA GOLA
     parts.push_back(std::make_unique<TroncoCone>(
-        glm::vec3(0.0f, 1.15f, 0.0f), glm::vec3(0.0f, 1.0f, 0.0f), glm::vec3(1.0f), 0.0f, 0.28f, 0.28f, 0.07f
+        glm::vec3(0.0f, 0.52f, 0.0f), glm::vec3(0.0f, 1.0f, 0.0f), glm::vec3(1.0f), 0.0f, 0.13f, 0.13f, 0.03f
     ));
 
     // 5. SEGUNDO ANEL DA GOLA
     parts.push_back(std::make_unique<TroncoCone>(
-        glm::vec3(0.0f, 1.23f, 0.0f), glm::vec3(0.0f, 1.0f, 0.0f), glm::vec3(1.0f), 0.0f, 0.25f, 0.25f, 0.07f
+        glm::vec3(0.0f, 0.56f, 0.0f), glm::vec3(0.0f, 1.0f, 0.0f), glm::vec3(1.0f), 0.0f, 0.11f, 0.11f, 0.03f
     ));
 
     // 6. CABEÇA
     parts.push_back(std::make_unique<Esfera>(
-        glm::vec3(0.0f, 1.55f, 0.0f), glm::vec3(0.0f, 1.0f, 0.0f), glm::vec3(0.55f, 0.75f, 0.55f), 0.0f, 0.5f
+        glm::vec3(0.0f, 0.70f, 0.0f), glm::vec3(0.0f, 1.0f, 0.0f), glm::vec3(0.25f, 0.34f, 0.25f), 0.0f, 0.5f
     ));
 
     // 7. ORNAMENTO DO TOPO
     parts.push_back(std::make_unique<Esfera>(
-        glm::vec3(0.0f, 1.95f, 0.0f), glm::vec3(0.0f, 1.0f, 0.0f), glm::vec3(0.18f, 0.18f, 0.18f), 0.0f, 0.5f
+        glm::vec3(0.0f, 0.89f, 0.0f), glm::vec3(0.0f, 1.0f, 0.0f), glm::vec3(0.08f), 0.0f, 0.5f
     ));
 }

@@ -16,7 +16,7 @@ Tabuleiro::Tabuleiro(glm::vec3 pos, float angle)
     : Object(pos, glm::vec3(0.0f), glm::vec3(1.0f), angle) { init(); }
 
 void Tabuleiro::inicializarPecas(){
-    float escalaPeca = 0.75f; 
+    float escalaPeca = 1.1f; 
     glm::vec3 corBranca = glm::vec3(0.9f, 0.9f, 0.85f);
     glm::vec3 corPreta  = glm::vec3(0.2f, 0.15f, 0.1f);
 
@@ -124,7 +124,11 @@ void Tabuleiro::movePiece(const glm::vec3& rayOriginWorld, const glm::vec3& rayD
 void Tabuleiro::init() {
     parts.clear();
 
-    tamanhoCasa = tamanhoCentro / 8.0f;
+    tamanhoCentro = 8.0f;
+    tamanhoCasa = 1.0f;
+    espessuraCentro = 0.40f;
+    larguraBorda = 0.50f;
+    alturaBorda = 0.60f;
 
     for (int col = 0; col < 8; ++col) {
         for (int lin = 0; lin < 8; ++lin) {
@@ -134,16 +138,16 @@ void Tabuleiro::init() {
 
     // 1. CUBO CENTRAL
     parts.push_back(std::make_unique<Cube>(
-        glm::vec3(0.0f, espessuraCentro / 2.0f, 0.0f),
+        glm::vec3(0.0f, 0.20f, 0.0f),
         glm::vec3(0.0f, 1.0f, 0.0f),
-        glm::vec3(tamanhoCentro, espessuraCentro, tamanhoCentro),
+        glm::vec3(8.0f, 0.40f, 8.0f),
         0.0f
     ));
 
     // 2. MOLDURAS DA BORDA
-    float deslocamentoCentro = (tamanhoCentro / 2.0f) + (larguraBorda / 2.0f);
-    float comprimentoBordaComQuinas = tamanhoCentro + (2.0f * larguraBorda);
-    float yPosBorda = alturaBorda / 2.0f;
+    float deslocamentoCentro = 4.25f;
+    float comprimentoBordaComQuinas = 9.0f;
+    float yPosBorda = 0.30f;
 
     // Borda Norte
     parts.push_back(std::make_unique<Cube>(
@@ -165,7 +169,7 @@ void Tabuleiro::init() {
     parts.push_back(std::make_unique<Cube>(
         glm::vec3(deslocamentoCentro, yPosBorda, 0.0f),
         glm::vec3(0.0f, 1.0f, 0.0f),
-        glm::vec3(larguraBorda, alturaBorda, tamanhoCentro),
+        glm::vec3(larguraBorda, alturaBorda, 8.0f),
         0.0f
     ));
 
@@ -173,19 +177,18 @@ void Tabuleiro::init() {
     parts.push_back(std::make_unique<Cube>(
         glm::vec3(-deslocamentoCentro, yPosBorda, 0.0f),
         glm::vec3(0.0f, 1.0f, 0.0f),
-        glm::vec3(larguraBorda, alturaBorda, tamanhoCentro),
+        glm::vec3(larguraBorda, alturaBorda, 8.0f),
         0.0f
     ));
 
     inicializarPecas();
 }
 
-// Retorna as coordenadas locais da casa no tabuleiro
 glm::vec3 Tabuleiro::getPosicaoCasa(int coluna, int linha) const {
-    float offsetInicio = -3.5f * tamanhoCasa;
-    float localX = offsetInicio + (coluna * tamanhoCasa);
-    float localZ = offsetInicio + (linha * tamanhoCasa);
-    float localY = espessuraCentro;
+    float offsetInicio = -3.5f;
+    float localX = offsetInicio + coluna;
+    float localZ = offsetInicio + linha;
+    float localY = 0.40f;
 
     return glm::vec3(localX, localY, localZ);
 }

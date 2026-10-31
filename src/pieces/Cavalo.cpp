@@ -13,68 +13,65 @@ void Cavalo::init() {
 
     // 1 e 2. Base
     parts.push_back(std::make_unique<TroncoCone>(
-        glm::vec3(0.0f, 0.1f, 0.0f), glm::vec3(0.0f, 1.0f, 0.0f), glm::vec3(1.0f), 0.0f, 0.6f, 0.5f, 0.1f
+        glm::vec3(0.0f, 0.05f, 0.0f), glm::vec3(0.0f, 1.0f, 0.0f), glm::vec3(1.0f), 0.0f, 0.27f, 0.23f, 0.05f
     ));
     parts.push_back(std::make_unique<TroncoCone>(
-        glm::vec3(0.0f, 0.1f, 0.0f), glm::vec3(0.0f, 1.0f, 0.0f), glm::vec3(1.0f), 0.0f, 0.5f, 0.6f, 0.1f
+        glm::vec3(0.0f, 0.05f, 0.0f), glm::vec3(0.0f, 1.0f, 0.0f), glm::vec3(1.0f), 0.0f, 0.23f, 0.27f, 0.05f
     ));
 
     parts.push_back(std::make_unique<TroncoCone>(
-        glm::vec3(0.0f, 0.2f, 0.0f), glm::vec3(0.0f, 1.0f, 0.0f), glm::vec3(1.0f), 0.0f, 0.6f, 0.45f, 0.1f
+        glm::vec3(0.0f, 0.09f, 0.0f), glm::vec3(0.0f, 1.0f, 0.0f), glm::vec3(1.0f), 0.0f, 0.27f, 0.20f, 0.05f
     ));
-
 
     // 3. PESCOÇO DO CAVALO
     parts.push_back(std::make_unique<TroncoCone>(
-        glm::vec3(0.0f, 0.35f, 0.0f), glm::vec3(0.0f, 0.0f, 0.0f), glm::vec3(1.0f), 0.0f, 0.45f, 0.45f, 0.2f
+        glm::vec3(0.0f, 0.16f, 0.0f), glm::vec3(0.0f, 0.0f, 0.0f), glm::vec3(1.0f), 0.0f, 0.20f, 0.20f, 0.09f
     ));
 
     parts.push_back(std::make_unique<TroncoCone>(
-        glm::vec3(0.0f, 0.55f, 0.0f), glm::vec3(1.00f, 0.0f, 0.0f), glm::vec3(1.0f), 10.0f, 0.4f, 0.3f, 0.4f
+        glm::vec3(0.0f, 0.25f, 0.0f), glm::vec3(1.0f, 0.0f, 0.0f), glm::vec3(1.0f), 10.0f, 0.18f, 0.14f, 0.18f
     ));
 
     parts.push_back(std::make_unique<TroncoCone>(
-        glm::vec3(0.0f, 1.0f, 0.2f), glm::vec3(1.0f, 0.0f, 0.0f), glm::vec3(1.0f), 30.0f, 0.30f, 0.25f, 0.8f
+        glm::vec3(0.0f, 0.45f, 0.09f), glm::vec3(1.0f, 0.0f, 0.0f), glm::vec3(1.0f), 30.0f, 0.14f, 0.11f, 0.36f
     ));
     parts.push_back(std::make_unique<TroncoCone>(
-        glm::vec3(0.0f, 1.35f, 0.40f), glm::vec3(0.0f, 0.0f, 0.0f), glm::vec3(1.0f), 0.0f, 0.22f, 0.25f, 0.3f
+        glm::vec3(0.0f, 0.61f, 0.18f), glm::vec3(0.0f, 0.0f, 0.0f), glm::vec3(1.0f), 0.0f, 0.10f, 0.11f, 0.14f
     ));
 
     parts.push_back(std::make_unique<TroncoCone>(
-        glm::vec3(0.0f, 1.5f, 0.4f), glm::vec3(1.0f, 0.0f, 0.0f), glm::vec3(1.0f), -25.0f, 0.22f, 0.20f, 0.2f
+        glm::vec3(0.0f, 0.68f, 0.18f), glm::vec3(1.0f, 0.0f, 0.0f), glm::vec3(1.0f), -25.0f, 0.10f, 0.09f, 0.09f
     ));
 
     parts.push_back(std::make_unique<TroncoCone>(
-        glm::vec3(0.0f, 1.65f, 0.3f), glm::vec3(1.0f, 0.0f, 0.0f), glm::vec3(1.0f), -45.0f, 0.175f, 0.25f, 0.5f
+        glm::vec3(0.0f, 0.75f, 0.14f), glm::vec3(1.0f, 0.0f, 0.0f), glm::vec3(1.0f), -45.0f, 0.08f, 0.11f, 0.23f
     ));
     parts.push_back(std::make_unique<TroncoCone>(
-        glm::vec3(0.0f, 1.75f, 0.0f), glm::vec3(1.0f, 0.0f, 0.0f), glm::vec3(1.0f), -90.0f, 0.25f, 0.25f, 0.5f
+        glm::vec3(0.0f, 0.80f, 0.0f), glm::vec3(1.0f, 0.0f, 0.0f), glm::vec3(1.0f), -90.0f, 0.11f, 0.11f, 0.23f
     ));
-
 
     // 3.1. Crina
     parts.push_back(std::make_unique<Cube>(
-        glm::vec3(0.0f, 0.85f, 0.50f), glm::vec3(1.0f, 0.0f, 0.0f), glm::vec3(0.05f, 0.7f, 0.3f), 30.0f
+        glm::vec3(0.0f, 0.39f, 0.23f), glm::vec3(1.0f, 0.0f, 0.0f), glm::vec3(0.02f, 0.32f, 0.14f), 30.0f
     ));
     parts.push_back(std::make_unique<Cube>(
-        glm::vec3(0.0f, 1.3f, 0.65f), glm::vec3(1.0f, 0.0f, 0.0f), glm::vec3(0.05f, 0.45f, 0.3f), 0.0f
+        glm::vec3(0.0f, 0.59f, 0.30f), glm::vec3(1.0f, 0.0f, 0.0f), glm::vec3(0.02f, 0.20f, 0.14f), 0.0f
     ));
     parts.push_back(std::make_unique<Cube>(
-        glm::vec3(0.0f, 1.5f, 0.65f), glm::vec3(1.0f, 0.0f, 0.0f), glm::vec3(0.05f, 0.2f, 0.3f), 0.0f
+        glm::vec3(0.0f, 0.68f, 0.30f), glm::vec3(1.0f, 0.0f, 0.0f), glm::vec3(0.02f, 0.09f, 0.14f), 0.0f
     ));
     parts.push_back(std::make_unique<Cube>(
-        glm::vec3(0.0f, 1.75f, 0.45f), glm::vec3(1.0f, 0.0f, 0.0f), glm::vec3(0.05f, 0.7f, 0.3f), -45.0f
+        glm::vec3(0.0f, 0.80f, 0.20f), glm::vec3(1.0f, 0.0f, 0.0f), glm::vec3(0.02f, 0.32f, 0.14f), -45.0f
     ));
     parts.push_back(std::make_unique<Cube>(
-        glm::vec3(0.0f, 1.95f, 0.05f), glm::vec3(1.0f, 0.0f, 0.0f), glm::vec3(0.05f, 0.5f, 0.3f), -90.0f
+        glm::vec3(0.0f, 0.89f, 0.02f), glm::vec3(1.0f, 0.0f, 0.0f), glm::vec3(0.02f, 0.23f, 0.14f), -90.0f
     ));
     parts.push_back(std::make_unique<Cube>(
-        glm::vec3(0.0f, 1.9f, -0.2f), glm::vec3(1.0f, 0.0f, 0.0f), glm::vec3(0.05f, 0.3f, 0.3f), -145.0f
+        glm::vec3(0.0f, 0.86f, -0.09f), glm::vec3(1.0f, 0.0f, 0.0f), glm::vec3(0.02f, 0.14f, 0.14f), -145.0f
     ));
 
-    // // 4. CABEÇA 
+    // 4. CABEÇA 
     parts.push_back(std::make_unique<TroncoCone>(
-        glm::vec3(0.0f, 1.45f, -0.445f), glm::vec3(1.0f, 0.0f, 0.0f), glm::vec3(1.0f), -135.0f, 0.25f, 0.1f, 1.0f
+        glm::vec3(0.0f, 0.66f, -0.20f), glm::vec3(1.0f, 0.0f, 0.0f), glm::vec3(1.0f), -135.0f, 0.11f, 0.05f, 0.45f
     ));
-
 }

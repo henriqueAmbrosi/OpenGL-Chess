@@ -15,38 +15,38 @@ void Rainha::init() {
 
     // 1. BASE INFERIOR
     parts.push_back(std::make_unique<TroncoCone>(
-        glm::vec3(0.0f, 0.1f, 0.0f), glm::vec3(0.0f, 1.0f, 0.0f), glm::vec3(1.0f), 0.0f, 0.6f, 0.5f, 0.2f
+        glm::vec3(0.0f, 0.05f, 0.0f), glm::vec3(0.0f, 1.0f, 0.0f), glm::vec3(1.0f), 0.0f, 0.27f, 0.23f, 0.09f
     ));
 
     // 2. MOLDURA DA BASE
     parts.push_back(std::make_unique<TroncoCone>(
-        glm::vec3(0.0f, 0.25f, 0.0f), glm::vec3(0.0f, 1.0f, 0.0f), glm::vec3(1.0f), 0.0f, 0.5f, 0.45f, 0.1f
+        glm::vec3(0.0f, 0.11f, 0.0f), glm::vec3(0.0f, 1.0f, 0.0f), glm::vec3(1.0f), 0.0f, 0.23f, 0.20f, 0.05f
     ));
 
     // 3. CORPO DA RAINHA
     parts.push_back(std::make_unique<TroncoCone>(
-        glm::vec3(0.0f, 0.85f, 0.0f), glm::vec3(0.0f, 1.0f, 0.0f), glm::vec3(1.0f), 0.0f, 0.45f, 0.22f, 1.3f
+        glm::vec3(0.0f, 0.39f, 0.0f), glm::vec3(0.0f, 1.0f, 0.0f), glm::vec3(1.0f), 0.0f, 0.20f, 0.10f, 0.59f
     ));
 
     // 4. PRIMEIRO ANEL DA GOLA
     parts.push_back(std::make_unique<TroncoCone>(
-        glm::vec3(0.0f, 1.54f, 0.0f), glm::vec3(0.0f, 1.0f, 0.0f), glm::vec3(1.0f), 0.0f, 0.32f, 0.32f, 0.08f
+        glm::vec3(0.0f, 0.70f, 0.0f), glm::vec3(0.0f, 1.0f, 0.0f), glm::vec3(1.0f), 0.0f, 0.15f, 0.15f, 0.04f
     ));
 
     // 5. SEGUNDO ANEL DA GOLA
     parts.push_back(std::make_unique<TroncoCone>(
-        glm::vec3(0.0f, 1.63f, 0.0f), glm::vec3(0.0f, 1.0f, 0.0f), glm::vec3(1.0f), 0.0f, 0.25f, 0.25f, 0.08f
+        glm::vec3(0.0f, 0.74f, 0.0f), glm::vec3(0.0f, 1.0f, 0.0f), glm::vec3(1.0f), 0.0f, 0.11f, 0.11f, 0.04f
     ));
 
     // 6. COROA
     parts.push_back(std::make_unique<TroncoCone>(
-        glm::vec3(0.0f, 1.90f, 0.0f), glm::vec3(0.0f, 1.0f, 0.0f), glm::vec3(1.0f), 0.0f, 0.22f, 0.38f, 0.44f
+        glm::vec3(0.0f, 0.86f, 0.0f), glm::vec3(0.0f, 1.0f, 0.0f), glm::vec3(1.0f), 0.0f, 0.10f, 0.17f, 0.20f
     ));
 
     // 7. PONTAS DA COROA
     int numPontas = 8;
-    float raioBorda = 0.39f;
-    float alturaPontas = 2.13f;
+    float raioBorda = 0.18f;
+    float alturaPontas = 0.97f;
 
     for (int i = 0; i < numPontas; ++i) {
         float anguloGraus = i * (360.0f / numPontas);
@@ -58,18 +58,18 @@ void Rainha::init() {
         parts.push_back(std::make_unique<Esfera>(
             glm::vec3(x, alturaPontas, z),
             glm::vec3(0.0f, 1.0f, 0.0f),
-            glm::vec3(0.14f, 0.14f, 0.14f), // Esferas maiores (de 0.08f para 0.14f)
+            glm::vec3(0.06f),
             0.0f, 0.5f
         ));
     }
 
     // 8. CABEÇA
     parts.push_back(std::make_unique<Esfera>(
-        glm::vec3(0.0f, 2.13f, 0.0f), glm::vec3(0.0f, 1.0f, 0.0f), glm::vec3(0.35f, 0.32f, 0.35f), 0.0f, 0.7f
+        glm::vec3(0.0f, 0.97f, 0.0f), glm::vec3(0.0f, 1.0f, 0.0f), glm::vec3(0.16f, 0.15f, 0.16f), 0.0f, 0.7f
     ));
 
     // 9. ORNAMENTO DO TOPO
     parts.push_back(std::make_unique<Esfera>(
-        glm::vec3(0.0f, 2.38f, 0.0f), glm::vec3(0.0f, 1.0f, 0.0f), glm::vec3(0.13f, 0.13f, 0.13f), 0.0f, 0.5f
+        glm::vec3(0.0f, 1.08f, 0.0f), glm::vec3(0.0f, 1.0f, 0.0f), glm::vec3(0.06f), 0.0f, 0.5f
     ));
 }
