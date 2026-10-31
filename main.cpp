@@ -30,6 +30,27 @@ glm::vec3 cameraPos = glm::vec3(0.0f, 0.0f, 3.0f);
 glm::vec3 cameraFront = glm::vec3(0.0f, 0.0f, -1.0f);
 glm::vec3 cameraUp = glm::vec3(0.0f, 1.0f, 0.0f);
 
+// Estrutura para callback do mouse
+struct UserData {
+    Tabuleiro* p1;
+    glm::vec3* position;
+    glm::vec3* cameraFront;
+    glm::mat4* modelTabuleiro;
+};
+
+// Callback do clique
+void mouseButtonCallback(GLFWwindow* window, int button, int action, int mods) {
+    if (button == GLFW_MOUSE_BUTTON_LEFT && action == GLFW_PRESS) {
+        auto data = static_cast<UserData*>(glfwGetWindowUserPointer(window));
+        
+        if (!data->p1->hasSelectedPiece()) {
+            data->p1->selectPiece(*(data->position), *(data->cameraFront), *(data->modelTabuleiro));
+        } else {
+            data->p1->movePiece(*(data->position), *(data->cameraFront), *(data->modelTabuleiro));
+        }
+    }
+}
+
 bool intersectPlane(const glm::vec3& ro, const glm::vec3& rd,
     float planeY, float& t) {
     if (std::abs(rd.y) < 1e-6f) return false;
@@ -41,10 +62,8 @@ void viraCamera(float x, float y)
 {
     yaw += x * sensitivity;
     pitch += y * sensitivity;
-    if(pitch > 89.0f)
-    pitch = 89.0f;
-    if(pitch < -89.0f)
-    pitch = -89.0f;
+    if(pitch > 89.0f) pitch = 89.0f;
+    if(pitch < -89.0f) pitch = -89.0f;
     glm::vec3 direction;
     direction.x = cos(glm::radians(yaw)) * cos(glm::radians(pitch));
     direction.y = sin(glm::radians(pitch));
@@ -87,13 +106,6 @@ int main() {
     shader.setInt("texture1", 0);
     shader.setInt("texture2", 1);
 
-    // Cria cubos com posições diferentes
-    Cube cube2(glm::vec3(2.0f, 0.0f, -2.5f));
-    Cube cube3(glm::vec3(-2.0f, 1.0f, -4.0f));
-    Cube cube4(glm::vec3(-3.0f, -1.0f, 3.0f));
-    Cube cube5(glm::vec3(-4.0f, 0.0f, 0.0f));
-
-
     Tabuleiro p1(glm::vec3(0.0f, -4.0f, 0.0f), 0.0f);
     p1.scale = glm::vec3(2.5f, 2.5f, 2.5f);
 
@@ -121,12 +133,17 @@ int main() {
     glBindVertexArray(0);
 
     glm::vec3 position = glm::vec3(0.0f, 0.0f, 0.0f);
+    glm::mat4 modelTabuleiro = glm::mat4(1.0f);
 
-    double xrot, yrot, xangle, yangle, zrot;        
+    // Registra os dados do usuário e configura o callback de clique do mouse no GLFW
+    UserData userData = { &p1, &position, &cameraFront, &modelTabuleiro };
+    glfwSetWindowUserPointer(app.getWindow(), &userData);
+    glfwSetMouseButtonCallback(app.getWindow(), mouseButtonCallback);
+
+    double xrot, yrot, xangle, yangle;        
+
     // Loop principal
     while (!glfwWindowShouldClose(app.getWindow())) {
-        GLdouble worldX, worldY, worldZ;
-
         // Processa input
         if (glfwGetKey(app.getWindow(), GLFW_KEY_ESCAPE) == GLFW_PRESS) {
             glfwSetWindowShouldClose(app.getWindow(), true);
@@ -139,33 +156,22 @@ int main() {
         yangle = -(yrot - 384) / senseFactor;
         glfwSetCursorPos(app.window, 1024/2, 768/2);
 
-        // printf("x: %f | y: %f \n", xrot, yrot);
-
         // Limpa tela e depth buffer
-        //glClearColor(0.1f, 0.1f, 0.2f, 1.0f);
         glClearColor(0.7f, 0.5f, 0.1f, 1.0f);
-        //glClearColor(0.0f, 0.0f, 0.0f, 1.0f);
-
         glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 
         shader.use();
 
         glm::mat4 model = glm::mat4(1.0f);
         
-        // model = glm::rotate(model, (angle * (float) glfwGetTime()) / 20, glm::vec3(0.0f, 0.3f, 0.0f));
-        // model = glm::rotate(model, (float) glm::radians(zrot), glm::vec3(0.0f, 0.0f, 1.0f));
-        // model = glm::rotate(model, (float) glm::radians(xangle), glm::vec3(0.0f, 1.0f, 0.0f));
-        // model = glm::rotate(model, (float) glm::radians(yangle), glm::vec3(0.0f, 0.0f, 1.0f));''
-        // //model = glm::rotate(model, -60.0f, glm::vec3(0.0f, 0.3f, 0.0f));
-        // position += glm::vec3(glm::vec4(pos, 1.0f)  * model);
-        glm::mat4 untranslatedModel = glm::mat4(model);
-        // model = glm::translate(model, position);
+        // Atualiza a matriz do tabuleiro a cada frame para manter o sincronismo
+        modelTabuleiro = glm::mat4(1.0f);
+        modelTabuleiro = glm::translate(modelTabuleiro, p1.position);
+        if (glm::length(p1.rotation) > 0.0f) 
+            modelTabuleiro = glm::rotate(modelTabuleiro, glm::radians(p1.angle), glm::normalize(p1.rotation));
+        modelTabuleiro = glm::scale(modelTabuleiro, p1.scale);
 
         shader.setMat4("model", model);
-
-        glm::vec3 cameraTarget = glm::vec3(0.0f, 0.0f, 0.0f);
-        glm::vec3 cameraDirection = glm::normalize(position - cameraTarget);
-        glm::vec3 up = glm::vec3(0.0f, 1.0f, 0.0f);
 
         // Configura view e projection
         glm::mat4 projection = glm::perspective(glm::radians(45.0f),
@@ -178,20 +184,11 @@ int main() {
         shader.setMat4("projection", projection);
         shader.setMat4("view", view);
 
-        if (glfwGetMouseButton(app.getWindow(), GLFW_MOUSE_BUTTON_LEFT) == GLFW_PRESS && !p1.hasSelectedPiece()) {
-            p1.selectPiece(position, cameraFront, model);
-        }
-
-        if (p1.hasSelectedPiece() && glfwGetMouseButton(app.getWindow(), GLFW_MOUSE_BUTTON_LEFT) != GLFW_PRESS) {
-            p1.movePiece(position, cameraFront, model);
-        }
-
         // Bind texturas
         tex1.bind(0);
         tex2.bind(1);
 
         // Desenha tabuleiro
-
         p1.draw(shader, model);
 
         // Ponteiro
@@ -207,7 +204,6 @@ int main() {
         glBindVertexArray(0);
         
         glEnable(GL_DEPTH_TEST);
-
 
         glfwSwapBuffers(app.getWindow());
         glfwPollEvents();
