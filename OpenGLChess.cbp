@@ -13,11 +13,7 @@
 				<Option compiler="gcc" />
 				<Compiler>
 					<Add option="-g" />
-					<Add directory="include" />
 				</Compiler>
-				<Linker>
-					<Add option="-lGL -lGLEW -lglfw3 -lX11 -lXxf86vm -lXrandr -lpthread -lXi -ldl" />
-				</Linker>
 			</Target>
 			<Target title="Release">
 				<Option output="bin/Release/OpenGLChess" prefix_auto="1" extension_auto="1" />
@@ -36,47 +32,7 @@
 			<Add option="-Wall" />
 			<Add option="-fexceptions" />
 		</Compiler>
-		<Unit filename="OpenGLChess.layout" />
-		<Unit filename="fragment.glsl" />
-		<Unit filename="include/Application.h" />
-		<Unit filename="include/pieces/Bispo.h" />
-		<Unit filename="include/pieces/Cavalo.h" />
-		<Unit filename="include/pieces/Peao.h" />
-		<Unit filename="include/pieces/Rainha.h" />
-		<Unit filename="include/pieces/Rei.h" />
-		<Unit filename="include/pieces/Tabuleiro.h" />
-		<Unit filename="include/pieces/Torre.h" />
-		<Unit filename="include/shapes/Cube.h" />
-		<Unit filename="include/shapes/Esfera.h" />
-		<Unit filename="include/shapes/Prisma.h" />
-		<Unit filename="include/shapes/TroncoCone.h" />
-		<Unit filename="include/utils/Mesh.h" />
-		<Unit filename="include/utils/Object.h" />
-		<Unit filename="include/utils/Shader.h" />
-		<Unit filename="include/utils/Texture.h" />
-		<Unit filename="include/utils/stb_image.h" />
 		<Unit filename="main.cpp" />
-		<Unit filename="makefile" />
-		<Unit filename="out" />
-		<Unit filename="src/Application.cpp" />
-		<Unit filename="src/pieces/Bispo.cpp" />
-		<Unit filename="src/pieces/Cavalo.cpp" />
-		<Unit filename="src/pieces/Peao.cpp" />
-		<Unit filename="src/pieces/Rainha.cpp" />
-		<Unit filename="src/pieces/Rei.cpp" />
-		<Unit filename="src/pieces/Tabuleiro.cpp" />
-		<Unit filename="src/pieces/Torre.cpp" />
-		<Unit filename="src/shapes/Cube.cpp" />
-		<Unit filename="src/shapes/Esfera.cpp" />
-		<Unit filename="src/shapes/Prisma.cpp" />
-		<Unit filename="src/shapes/TroncoCone.cpp" />
-		<Unit filename="src/utils/Mesh.cpp" />
-		<Unit filename="src/utils/Object.cpp" />
-		<Unit filename="src/utils/Texture.cpp" />
-		<Unit filename="src/utils/stb_image.cpp" />
-		<Unit filename="textures/madeira.png" />
-		<Unit filename="textures/xadrez2x2.png" />
-		<Unit filename="vertex.glsl" />
 		<Extensions />
 	</Project>
 </CodeBlocks_project_file>
