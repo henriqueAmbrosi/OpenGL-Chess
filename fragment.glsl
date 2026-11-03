@@ -18,9 +18,12 @@ void main() {
         vec2 woodCoord = vec2(TexCoord.x * 4.0, TexCoord.y * 1.0); 
         FragColor = texture(texture2, woodCoord);
     } 
-    else {
+    else if (materialID == 2) {
         vec4 texColor = texture(texture2, TexCoord);
         FragColor = texColor * vec4(objectColor, 1.0f);
+    } else {
+        vec4 texColor = texture(texture2, TexCoord);
+        FragColor = mix(texColor * vec4(objectColor, 1.0f), vec4(1.0f, 1.0f, 1.0f, 1.0f), 0.1f);
     }
 
     if (isSpecial != 0) {

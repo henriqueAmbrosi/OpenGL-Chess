@@ -31,7 +31,7 @@ void Tabuleiro::inicializarPecas(){
         slot.reset(pecaCriada);
         slot->scale = glm::vec3(escalaPeca);
         slot->setCor(corPreta);
-        slot->setMaterialID(2);
+        slot->setMaterialID(3);
     };
 
     // --- PEÇAS BRANCAS ---
