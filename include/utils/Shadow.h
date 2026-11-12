@@ -22,8 +22,8 @@ public:
     float farPlane = 200.0f;
 
     Shadow(unsigned int width = 2048, unsigned int height = 2048,
-           const char* vertexPath = "depth_vertex.glsl",
-           const char* fragmentPath = "depth_fragment.glsl");
+           const char* vertexPath = "shaders/depth_vertex.glsl",
+           const char* fragmentPath = "shaders/depth_fragment.glsl");
     ~Shadow();
 
     void configureShader(Shader& shader, unsigned int textureUnit = 2) const;

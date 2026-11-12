@@ -24,7 +24,7 @@ int main() {
     glEnable(GL_DEPTH_TEST);
 
     // Shaders e texturas
-    Shader shader("vertex.glsl", "fragment.glsl");
+    Shader shader("shaders/vertex.glsl", "shaders/fragment.glsl");
     Texture tex1("textures/xadrez2x2.png");
     Texture tex2("textures/madeira.png");
 
@@ -80,6 +80,9 @@ int main() {
         tex2.bind(1);
 
         p1.draw(shader, model);
+
+        float aspect = static_cast<float>(WIDTH) / HEIGHT;
+        light.draw(camera.getViewMatrix(), camera.getProjectionMatrix(aspect));
 
         crosshair.draw();
 

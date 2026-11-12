@@ -15,8 +15,8 @@ private:
 
 public:
     Crosshair(float width = 1024.0f, float height = 768.0f, float size = 10.0f,
-              const char* vertexPath = "cursor_vertex.glsl",
-              const char* fragmentPath = "cursor_fragment.glsl");
+              const char* vertexPath = "shaders/cursor_vertex.glsl",
+              const char* fragmentPath = "shaders/cursor_fragment.glsl");
     ~Crosshair();
 
     Crosshair(const Crosshair&) = delete;
