@@ -38,6 +38,14 @@ void Esfera::init(float radius, unsigned int sectors, unsigned int stacks) {
             float t = (float)i / stacks;
             vertices.push_back(s);
             vertices.push_back(t);
+
+            float length = sqrtf(x * x + y * y + z * z);
+            float nx = x / length;
+            float ny = y / length;
+            float nz = z / length;
+            vertices.push_back(nx);
+            vertices.push_back(ny);
+            vertices.push_back(nz);
         }
     }
 
@@ -75,10 +83,10 @@ void Esfera::init(float radius, unsigned int sectors, unsigned int stacks) {
     glBufferData(GL_ELEMENT_ARRAY_BUFFER, indices.size() * sizeof(unsigned int), indices.data(), GL_STATIC_DRAW);
 
     // Atributo de Posição
-    glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, 5 * sizeof(float), (void*)0);
+    glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, 8 * sizeof(float), (void*)0);
     glEnableVertexAttribArray(0);
     // Atributo de Textura
-    glVertexAttribPointer(1, 2, GL_FLOAT, GL_FALSE, 5 * sizeof(float), (void*)(3 * sizeof(float)));
+    glVertexAttribPointer(1, 2, GL_FLOAT, GL_FALSE, 8 * sizeof(float), (void*)(3 * sizeof(float)));
     glEnableVertexAttribArray(1);
 
     glBindVertexArray(0);

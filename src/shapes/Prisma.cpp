@@ -2,37 +2,42 @@
 #include "shapes/Prisma.h"
 
 float verticesPrisma[] = {
-    // positions          // tex coords
+    // positions          // tex coords  // normals
     // back face
-   -0.5f, -0.5f, -0.5f,  0.0f, 1.0f,
-    0.5f, -0.5f, -0.5f,  1.0f, 1.0f,
-    0.5f,  0.5f, -0.5f,  1.0f, 0.0f,
-   -0.5f,  0.5f, -0.5f,  0.0f, 0.0f,
+   -0.5f, -0.5f, -0.5f,  0.0f, 1.0f,     0.0f,  0.0f, -1.0f,
+    0.5f, -0.5f, -0.5f,  1.0f, 1.0f,     0.0f,  0.0f, -1.0f,
+    0.5f,  0.5f, -0.5f,  1.0f, 0.0f,     0.0f,  0.0f, -1.0f,
+   -0.5f,  0.5f, -0.5f,  0.0f, 0.0f,     0.0f,  0.0f, -1.0f,
+
     // front face
-   -0.5f, -0.5f,  0.5f,  0.0f, 0.0f,
-    0.5f, -0.5f,  0.5f,  1.0f, 0.0f,
-    0.5f,  0.5f,  0.5f,  1.0f, 1.0f,
-   -0.5f,  0.5f,  0.5f,  0.0f, 1.0f,
+   -0.5f, -0.5f,  0.5f,  0.0f, 0.0f,     0.0f,  0.0f,  1.0f,
+    0.5f, -0.5f,  0.5f,  1.0f, 0.0f,     0.0f,  0.0f,  1.0f,
+    0.5f,  0.5f,  0.5f,  1.0f, 1.0f,     0.0f,  0.0f,  1.0f,
+   -0.5f,  0.5f,  0.5f,  0.0f, 1.0f,     0.0f,  0.0f,  1.0f,
+
     // left face
-   -0.5f, -0.5f, -0.5f,  1.0f, 1.0f,
-   -0.5f,  0.5f, -0.5f,  1.0f, 0.0f,
-   -0.5f,  0.5f,  0.5f,  0.0f, 0.0f,
-   -0.5f, -0.5f,  0.5f,  0.0f, 1.0f,
+   -0.5f, -0.5f, -0.5f,  1.0f, 1.0f,    -1.0f,  0.0f,  0.0f,
+   -0.5f,  0.5f, -0.5f,  1.0f, 0.0f,    -1.0f,  0.0f,  0.0f,
+   -0.5f,  0.5f,  0.5f,  0.0f, 0.0f,    -1.0f,  0.0f,  0.0f,
+   -0.5f, -0.5f,  0.5f,  0.0f, 1.0f,    -1.0f,  0.0f,  0.0f,
+
     // right face
-    0.5f, -0.5f, -0.5f,  0.0f, 1.0f,
-    0.5f,  0.5f, -0.5f,  0.0f, 0.0f,
-    0.5f,  0.5f,  0.5f,  1.0f, 0.0f,
-    0.5f, -0.5f,  0.5f,  1.0f, 1.0f,
+    0.5f, -0.5f, -0.5f,  0.0f, 1.0f,     1.0f,  0.0f,  0.0f,
+    0.5f,  0.5f, -0.5f,  0.0f, 0.0f,     1.0f,  0.0f,  0.0f,
+    0.5f,  0.5f,  0.5f,  1.0f, 0.0f,     1.0f,  0.0f,  0.0f,
+    0.5f, -0.5f,  0.5f,  1.0f, 1.0f,     1.0f,  0.0f,  0.0f,
+
     // top face
-   -0.5f,  0.5f, -0.5f,  0.0f, 1.0f,
-    0.5f,  0.5f, -0.5f,  1.0f, 1.0f,
-    0.5f,  0.5f,  0.5f,  1.0f, 0.0f,
-   -0.5f,  0.5f,  0.5f,  0.0f, 0.0f,
+   -0.5f,  0.5f, -0.5f,  0.0f, 1.0f,     0.0f,  1.0f,  0.0f,
+    0.5f,  0.5f, -0.5f,  1.0f, 1.0f,     0.0f,  1.0f,  0.0f,
+    0.5f,  0.5f,  0.5f,  1.0f, 0.0f,     0.0f,  1.0f,  0.0f,
+   -0.5f,  0.5f,  0.5f,  0.0f, 0.0f,     0.0f,  1.0f,  0.0f,
+
     // bottom face
-   -0.5f, -0.5f, -0.5f,  0.0f, 0.0f,
-    0.5f, -0.5f, -0.5f,  1.0f, 0.0f,
-    0.5f, -0.5f,  0.5f,  1.0f, 1.0f,
-   -0.5f, -0.5f,  0.5f,  0.0f, 1.0f
+   -0.5f, -0.5f, -0.5f,  0.0f, 0.0f,     0.0f, -1.0f,  0.0f,
+    0.5f, -0.5f, -0.5f,  1.0f, 0.0f,     0.0f, -1.0f,  0.0f,
+    0.5f, -0.5f,  0.5f,  1.0f, 1.0f,     0.0f, -1.0f,  0.0f,
+   -0.5f, -0.5f,  0.5f,  0.0f, 1.0f,     0.0f, -1.0f,  0.0f
 };
 
 unsigned int indicesPrisma[] = {
@@ -63,10 +68,10 @@ void Prisma::init() {
     glBufferData(GL_ELEMENT_ARRAY_BUFFER, sizeof(indicesPrisma), indicesPrisma, GL_STATIC_DRAW);
 
     // position
-    glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, 5 * sizeof(float), (void*)0);
+    glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, 8 * sizeof(float), (void*)0);
     glEnableVertexAttribArray(0);
     // tex coords
-    glVertexAttribPointer(1, 2, GL_FLOAT, GL_FALSE, 5 * sizeof(float), (void*)(3 * sizeof(float)));
+    glVertexAttribPointer(1, 2, GL_FLOAT, GL_FALSE, 8 * sizeof(float), (void*)(3 * sizeof(float)));
     glEnableVertexAttribArray(1);
 
     glBindVertexArray(0);
