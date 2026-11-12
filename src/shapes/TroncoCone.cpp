@@ -19,6 +19,13 @@ void TroncoCone::init(float radiusBottom, float radiusTop, float height, unsigne
     float halfHeight = height / 2.0f;
     float PI = 3.14159265359f;
 
+    // Cálculo da inclinação (geratriz) para a normal lateral correta
+    float dr = radiusBottom - radiusTop;
+    float slantHeight = sqrtf(dr * dr + height * height);
+    float normalY = dr / slantHeight;
+    float normalXZFactor = height / slantHeight;
+
+    // 1. Superfície Lateral
     for (unsigned int i = 0; i <= 1; ++i) {
         float h = (i == 0) ? -halfHeight : halfHeight;
         float r = (i == 0) ? radiusBottom : radiusTop;
@@ -30,11 +37,17 @@ void TroncoCone::init(float radiusBottom, float radiusTop, float height, unsigne
             float z = r * sinf(sectorAngle);
             float s = (float)j / sectors;
 
+            // Posição (3)
             vertices.push_back(x);
             vertices.push_back(h);
             vertices.push_back(z);
+            // Coordenada de Textura (2)
             vertices.push_back(s);
             vertices.push_back(t);
+            // Normal (3)
+            vertices.push_back(cosf(sectorAngle) * normalXZFactor);
+            vertices.push_back(normalY);
+            vertices.push_back(sinf(sectorAngle) * normalXZFactor);
         }
     }
 
@@ -53,18 +66,21 @@ void TroncoCone::init(float radiusBottom, float radiusTop, float height, unsigne
         indices.push_back(bottom2);
     }
 
-    // Tampa Superior
-    unsigned int topCenterIndex = vertices.size() / 5;
-    vertices.push_back(0.0f); vertices.push_back(halfHeight); vertices.push_back(0.0f);
-    vertices.push_back(0.5f); vertices.push_back(0.5f);
+    // 2. Tampa Superior (Aponte para cima: 0.0f, 1.0f, 0.0f)
+    unsigned int topCenterIndex = vertices.size() / 8;
+    vertices.push_back(0.0f); vertices.push_back(halfHeight); vertices.push_back(0.0f); // Posição
+    vertices.push_back(0.5f); vertices.push_back(0.5f);                               // Tex
+    vertices.push_back(0.0f); vertices.push_back(1.0f); vertices.push_back(0.0f);       // Normal
 
     for (unsigned int j = 0; j <= sectors; ++j) {
         float sectorAngle = j * 2.0f * PI / sectors;
         float x = radiusTop * cosf(sectorAngle);
         float z = radiusTop * sinf(sectorAngle);
-        vertices.push_back(x); vertices.push_back(halfHeight); vertices.push_back(z);
-        vertices.push_back((radiusTop > 0.0f ? x / radiusTop + 1.0f : 1.0f) * 0.5f);
-        vertices.push_back((radiusTop > 0.0f ? z / radiusTop + 1.0f : 1.0f) * 0.5f);
+        
+        vertices.push_back(x); vertices.push_back(halfHeight); vertices.push_back(z); // Posição
+        vertices.push_back((radiusTop > 0.0f ? x / radiusTop + 1.0f : 1.0f) * 0.5f);  // Tex X
+        vertices.push_back((radiusTop > 0.0f ? z / radiusTop + 1.0f : 1.0f) * 0.5f);  // Tex Y
+        vertices.push_back(0.0f); vertices.push_back(1.0f); vertices.push_back(0.0f); // Normal
     }
 
     for (unsigned int j = 0; j < sectors; ++j) {
@@ -73,18 +89,21 @@ void TroncoCone::init(float radiusBottom, float radiusTop, float height, unsigne
         indices.push_back(topCenterIndex + 1 + j);
     }
 
-    // Tampa Inferior
-    unsigned int bottomCenterIndex = vertices.size() / 5;
-    vertices.push_back(0.0f); vertices.push_back(-halfHeight); vertices.push_back(0.0f);
-    vertices.push_back(0.5f); vertices.push_back(0.5f);
+    // 3. Tampa Inferior (Aponte para baixo: 0.0f, -1.0f, 0.0f)
+    unsigned int bottomCenterIndex = vertices.size() / 8;
+    vertices.push_back(0.0f); vertices.push_back(-halfHeight); vertices.push_back(0.0f); // Posição
+    vertices.push_back(0.5f); vertices.push_back(0.5f);                                // Tex
+    vertices.push_back(0.0f); vertices.push_back(-1.0f); vertices.push_back(0.0f);      // Normal
 
     for (unsigned int j = 0; j <= sectors; ++j) {
         float sectorAngle = j * 2.0f * PI / sectors;
         float x = radiusBottom * cosf(sectorAngle);
         float z = radiusBottom * sinf(sectorAngle);
-        vertices.push_back(x); vertices.push_back(-halfHeight); vertices.push_back(z);
-        vertices.push_back((radiusBottom > 0.0f ? x / radiusBottom + 1.0f : 1.0f) * 0.5f);
-        vertices.push_back((radiusBottom > 0.0f ? z / radiusBottom + 1.0f : 1.0f) * 0.5f);
+        
+        vertices.push_back(x); vertices.push_back(-halfHeight); vertices.push_back(z); // Posição
+        vertices.push_back((radiusBottom > 0.0f ? x / radiusBottom + 1.0f : 1.0f) * 0.5f); // Tex X
+        vertices.push_back((radiusBottom > 0.0f ? z / radiusBottom + 1.0f : 1.0f) * 0.5f); // Tex Y
+        vertices.push_back(0.0f); vertices.push_back(-1.0f); vertices.push_back(0.0f); // Normal
     }
 
     for (unsigned int j = 0; j < sectors; ++j) {
@@ -107,10 +126,17 @@ void TroncoCone::init(float radiusBottom, float radiusTop, float height, unsigne
     glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, EBO);
     glBufferData(GL_ELEMENT_ARRAY_BUFFER, indices.size() * sizeof(unsigned int), indices.data(), GL_STATIC_DRAW);
 
-    glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, 5 * sizeof(float), (void*)0);
+    // Atributo 0: Posição (3 floats)
+    glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, 8 * sizeof(float), (void*)0);
     glEnableVertexAttribArray(0);
-    glVertexAttribPointer(1, 2, GL_FLOAT, GL_FALSE, 5 * sizeof(float), (void*)(3 * sizeof(float)));
+    
+    // Atributo 1: Coordenada de Textura (2 floats)
+    glVertexAttribPointer(1, 2, GL_FLOAT, GL_FALSE, 8 * sizeof(float), (void*)(3 * sizeof(float)));
     glEnableVertexAttribArray(1);
+    
+    // Atributo 2: Normal (3 floats) -> Adicionado agora!
+    glVertexAttribPointer(2, 3, GL_FLOAT, GL_FALSE, 8 * sizeof(float), (void*)(5 * sizeof(float)));
+    glEnableVertexAttribArray(2);
 
     glBindVertexArray(0);
 }
