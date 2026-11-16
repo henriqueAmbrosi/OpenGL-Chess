@@ -2,6 +2,7 @@
 #include <GLFW/glfw3.h>
 #include <glm/glm.hpp>
 #include <glm/gtc/matrix_transform.hpp>
+#include <glm/gtc/type_ptr.hpp>
 
 #include <Application.h>
 #include <utils/Shader.h>
@@ -10,12 +11,16 @@
 #include <utils/Shadow.h>
 #include <utils/Camera.h>
 #include <utils/Crosshair.h>
+#include <utils/Skybox.h>
 #include <utils/Controls.h>
 #include <pieces/Tabuleiro.h>
+
+#include <vector>
 
 int main() {
     const int WIDTH = 1024;
     const int HEIGHT = 768;
+    std::vector<glm::vec3> lightPositions(10);
 
     // Inicializa janela e OpenGL
     Application app(WIDTH, HEIGHT, "Chess");
@@ -35,8 +40,11 @@ int main() {
 
     Camera camera(glm::vec3(0.0f, 0.0f, 0.0f));
     Light light(glm::vec3(8.0f, 12.0f, 24.0f), 0);
-    Shadow shadow(2048, 2048);
+    Light light2(glm::vec3(8.0f, 4.0f, 12.0f), 0);
+    Shadow shadow(4096, 4096);
+    Shadow shadow2(4096, 4096);
     Crosshair crosshair(WIDTH, HEIGHT);
+    Skybox skybox(90.0f);
     Controls controls(app.getWindow(), &camera, &light, &p1, &modelTabuleiro, WIDTH, HEIGHT);
 
     // Configura slots de textura
@@ -44,8 +52,10 @@ int main() {
     shader.setInt("texture1", 0);
     shader.setInt("texture2", 1);
     shadow.configureShader(shader, 2);
+    shadow2.configureShader(shader, 2);
 
     // Loop principal
+    glDepthFunc(GL_LEQUAL);
     while (!glfwWindowShouldClose(app.getWindow())) {
         controls.update();
 
@@ -63,26 +73,37 @@ int main() {
         shadow.renderDepthMap(light.getPosition(), [&](Shader& depthShader) {
             p1.draw(depthShader, model);
         });
+        shadow2.renderDepthMap(light2.getPosition(), [&](Shader& depthShader) {
+            p1.draw(depthShader, model);
+        });
 
         // Renderiza a cena
         app.framebuffer_size_callback(app.getWindow(), WIDTH, HEIGHT);
         glClearColor(0.7f, 0.5f, 0.1f, 1.0f);
         glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 
+        float aspect = static_cast<float>(WIDTH) / HEIGHT;
+        skybox.draw(camera.getViewMatrix(), camera.getProjectionMatrix(aspect));
+
         shader.use();
         shader.setMat4("model", model);
 
         camera.applyUniforms(shader, static_cast<float>(WIDTH) / HEIGHT);
-        light.applyUniforms(shader);
+
+        lightPositions[0] = light.position;
+        lightPositions[1] = light2.position;
+        
+        glUniform3fv(glGetUniformLocation(shader.ID, "lightPos[0]"), 2, glm::value_ptr(lightPositions[0]));
         shadow.bind(shader, 2);
+        shadow2.bind(shader, 2);
 
         tex1.bind(0);
         tex2.bind(1);
 
         p1.draw(shader, model);
 
-        float aspect = static_cast<float>(WIDTH) / HEIGHT;
         light.draw(camera.getViewMatrix(), camera.getProjectionMatrix(aspect));
+        light2.draw(camera.getViewMatrix(), camera.getProjectionMatrix(aspect));
 
         crosshair.draw();
 

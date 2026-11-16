@@ -22,10 +22,6 @@ void Light::update() {
     }
 }
 
-void Light::applyUniforms(Shader& shader) const {
-    shader.setVec3("lightPos", position);
-}
-
 void Light::draw(const glm::mat4& view, const glm::mat4& projection) {
     lightShader.use();
     lightShader.setMat4("view", view);

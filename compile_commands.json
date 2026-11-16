@@ -1,0 +1,112 @@
+[
+  {
+    "directory": "/home/bruno/Documentos/UCS/computacao_grafica/OpenGL-Chess",
+    "command": "g++ -std=c++17 -Wall -Wextra -Iinclude -I. -c main.cpp",
+    "file": "main.cpp"
+  },
+  {
+    "directory": "/home/bruno/Documentos/UCS/computacao_grafica/OpenGL-Chess",
+    "command": "g++ -std=c++17 -Wall -Wextra -Iinclude -I. -c src/pieces/Bispo.cpp",
+    "file": "src/pieces/Bispo.cpp"
+  },
+  {
+    "directory": "/home/bruno/Documentos/UCS/computacao_grafica/OpenGL-Chess",
+    "command": "g++ -std=c++17 -Wall -Wextra -Iinclude -I. -c src/pieces/Cavalo.cpp",
+    "file": "src/pieces/Cavalo.cpp"
+  },
+  {
+    "directory": "/home/bruno/Documentos/UCS/computacao_grafica/OpenGL-Chess",
+    "command": "g++ -std=c++17 -Wall -Wextra -Iinclude -I. -c src/pieces/Peao.cpp",
+    "file": "src/pieces/Peao.cpp"
+  },
+  {
+    "directory": "/home/bruno/Documentos/UCS/computacao_grafica/OpenGL-Chess",
+    "command": "g++ -std=c++17 -Wall -Wextra -Iinclude -I. -c src/pieces/Rainha.cpp",
+    "file": "src/pieces/Rainha.cpp"
+  },
+  {
+    "directory": "/home/bruno/Documentos/UCS/computacao_grafica/OpenGL-Chess",
+    "command": "g++ -std=c++17 -Wall -Wextra -Iinclude -I. -c src/pieces/Rei.cpp",
+    "file": "src/pieces/Rei.cpp"
+  },
+  {
+    "directory": "/home/bruno/Documentos/UCS/computacao_grafica/OpenGL-Chess",
+    "command": "g++ -std=c++17 -Wall -Wextra -Iinclude -I. -c src/pieces/Tabuleiro.cpp",
+    "file": "src/pieces/Tabuleiro.cpp"
+  },
+  {
+    "directory": "/home/bruno/Documentos/UCS/computacao_grafica/OpenGL-Chess",
+    "command": "g++ -std=c++17 -Wall -Wextra -Iinclude -I. -c src/pieces/Torre.cpp",
+    "file": "src/pieces/Torre.cpp"
+  },
+  {
+    "directory": "/home/bruno/Documentos/UCS/computacao_grafica/OpenGL-Chess",
+    "command": "g++ -std=c++17 -Wall -Wextra -Iinclude -I. -c src/shapes/Cube.cpp",
+    "file": "src/shapes/Cube.cpp"
+  },
+  {
+    "directory": "/home/bruno/Documentos/UCS/computacao_grafica/OpenGL-Chess",
+    "command": "g++ -std=c++17 -Wall -Wextra -Iinclude -I. -c src/shapes/Esfera.cpp",
+    "file": "src/shapes/Esfera.cpp"
+  },
+  {
+    "directory": "/home/bruno/Documentos/UCS/computacao_grafica/OpenGL-Chess",
+    "command": "g++ -std=c++17 -Wall -Wextra -Iinclude -I. -c src/shapes/TroncoCone.cpp",
+    "file": "src/shapes/TroncoCone.cpp"
+  },
+  {
+    "directory": "/home/bruno/Documentos/UCS/computacao_grafica/OpenGL-Chess",
+    "command": "g++ -std=c++17 -Wall -Wextra -Iinclude -I. -c src/utils/Mesh.cpp",
+    "file": "src/utils/Mesh.cpp"
+  },
+  {
+    "directory": "/home/bruno/Documentos/UCS/computacao_grafica/OpenGL-Chess",
+    "command": "g++ -std=c++17 -Wall -Wextra -Iinclude -I. -c src/utils/Texture.cpp",
+    "file": "src/utils/Texture.cpp"
+  },
+  {
+    "directory": "/home/bruno/Documentos/UCS/computacao_grafica/OpenGL-Chess",
+    "command": "g++ -std=c++17 -Wall -Wextra -Iinclude -I. -c src/utils/stb_image.cpp",
+    "file": "src/utils/stb_image.cpp"
+  },
+  {
+    "directory": "/home/bruno/Documentos/UCS/computacao_grafica/OpenGL-Chess",
+    "command": "g++ -std=c++17 -Wall -Wextra -Iinclude -I. -c src/utils/Object.cpp",
+    "file": "src/utils/Object.cpp"
+  },
+  {
+    "directory": "/home/bruno/Documentos/UCS/computacao_grafica/OpenGL-Chess",
+    "command": "g++ -std=c++17 -Wall -Wextra -Iinclude -I. -c src/utils/Camera.cpp",
+    "file": "src/utils/Camera.cpp"
+  },
+  {
+    "directory": "/home/bruno/Documentos/UCS/computacao_grafica/OpenGL-Chess",
+    "command": "g++ -std=c++17 -Wall -Wextra -Iinclude -I. -c src/utils/Controls.cpp",
+    "file": "src/utils/Controls.cpp"
+  },
+  {
+    "directory": "/home/bruno/Documentos/UCS/computacao_grafica/OpenGL-Chess",
+    "command": "g++ -std=c++17 -Wall -Wextra -Iinclude -I. -c src/utils/Crosshair.cpp",
+    "file": "src/utils/Crosshair.cpp"
+  },
+  {
+    "directory": "/home/bruno/Documentos/UCS/computacao_grafica/OpenGL-Chess",
+    "command": "g++ -std=c++17 -Wall -Wextra -Iinclude -I. -c src/utils/Light.cpp",
+    "file": "src/utils/Light.cpp"
+  },
+  {
+    "directory": "/home/bruno/Documentos/UCS/computacao_grafica/OpenGL-Chess",
+    "command": "g++ -std=c++17 -Wall -Wextra -Iinclude -I. -c src/utils/Shadow.cpp",
+    "file": "src/utils/Shadow.cpp"
+  },
+  {
+    "directory": "/home/bruno/Documentos/UCS/computacao_grafica/OpenGL-Chess",
+    "command": "g++ -std=c++17 -Wall -Wextra -Iinclude -I. -c src/utils/Skybox.cpp",
+    "file": "src/utils/Skybox.cpp"
+  },
+  {
+    "directory": "/home/bruno/Documentos/UCS/computacao_grafica/OpenGL-Chess",
+    "command": "g++ -std=c++17 -Wall -Wextra -Iinclude -I. -c src/Application.cpp",
+    "file": "src/Application.cpp"
+  }
+]

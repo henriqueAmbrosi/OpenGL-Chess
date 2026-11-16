@@ -13,7 +13,7 @@ uniform sampler2D shadowMap;
 uniform int materialID;
 uniform vec3 objectColor;
 uniform int isSpecial;
-uniform vec3 lightPos;
+uniform vec3 lightPos[10];
 
 float ShadowCalculation(vec4 fragPosLightSpace, vec3 normal, vec3 lightDir)
 {
@@ -70,18 +70,23 @@ void main()
 
     // ambient
     float ambientStrength = 0.15;
-    vec3 lightColor = vec3(1.0, 1.0, 1.0);
+    vec3 lightColor = vec3(1.0, 1.0, 0.0);
     vec3 ambient = ambientStrength * lightColor;
 
     // diffuse 
+
     vec3 norm = normalize(Normal);
-    vec3 lightDir = normalize(lightPos - FragPos);
-    float diff = max(dot(norm, lightDir), 0.0);
-    vec3 diffuse = diff * lightColor;
+    vec3 diffuse = vec3(0.0);
+    vec3 lighting = vec3(0.0);
+    for (int i = 0; i < 2; ++i) {
+        vec3 lightDir = normalize(lightPos[i] - FragPos);
+        diffuse = max(dot(norm, lightDir), 0.0) * lightColor;
 
-    // shadow
-    float shadow = ShadowCalculation(FragPosLightSpace, norm, lightDir);
+        vec3 shadowLightDir = normalize(lightPos[i] - FragPos);
+        float shadow = ShadowCalculation(FragPosLightSpace, norm, shadowLightDir);
 
-    vec3 lighting = ambient + (1.0 - shadow) * diffuse;
+        lighting += ambient + (1.0 - shadow) * diffuse;
+    }
+
     FragColor = baseColor * vec4(lighting, 1.0);
 }
