@@ -87,6 +87,7 @@ int main() {
 
         shader.use();
         shader.setMat4("model", model);
+        shader.setFloat("specularStrength", 32.0f);
 
         camera.applyUniforms(shader, static_cast<float>(WIDTH) / HEIGHT);
 
