@@ -1,5 +1,6 @@
 #include <GL/glew.h>
 #include <GLFW/glfw3.h>
+#include <glm/ext/vector_float3.hpp>
 #include <glm/glm.hpp>
 #include <glm/gtc/matrix_transform.hpp>
 #include <glm/gtc/type_ptr.hpp>
@@ -21,6 +22,7 @@ int main() {
     const int WIDTH = 1024;
     const int HEIGHT = 768;
     std::vector<glm::vec3> lightPositions(10);
+    std::vector<glm::vec3> lightIntensity(10);
 
     // Inicializa janela e OpenGL
     Application app(WIDTH, HEIGHT, "Chess");
@@ -41,8 +43,7 @@ int main() {
     Camera camera(glm::vec3(0.0f, 0.0f, 0.0f));
     Light light(glm::vec3(8.0f, 12.0f, 24.0f), 0);
     Light light2(glm::vec3(8.0f, 4.0f, 12.0f), 0);
-    Shadow shadow(4096, 4096);
-    Shadow shadow2(4096, 4096);
+    Shadow shadow(10, 4096, 4096);
     Crosshair crosshair(WIDTH, HEIGHT);
     Skybox skybox(90.0f);
     Controls controls(app.getWindow(), &camera, &light, &p1, &modelTabuleiro, WIDTH, HEIGHT);
@@ -52,7 +53,6 @@ int main() {
     shader.setInt("texture1", 0);
     shader.setInt("texture2", 1);
     shadow.configureShader(shader, 2);
-    shadow2.configureShader(shader, 2);
 
     // Loop principal
     glDepthFunc(GL_LEQUAL);
@@ -70,10 +70,10 @@ int main() {
 
         // Atualiza luz e gera depth map das sombras
         light.update();
-        shadow.renderDepthMap(light.getPosition(), [&](Shader& depthShader) {
+        shadow.renderDepthMap(0, light.getPosition(), [&](Shader& depthShader) {
             p1.draw(depthShader, model);
         });
-        shadow2.renderDepthMap(light2.getPosition(), [&](Shader& depthShader) {
+        shadow.renderDepthMap(1, light2.getPosition(), [&](Shader& depthShader) {
             p1.draw(depthShader, model);
         });
 
@@ -92,10 +92,13 @@ int main() {
 
         lightPositions[0] = light.position;
         lightPositions[1] = light2.position;
+        lightIntensity[0] = glm::vec3(1.0f, 1.0f, 1.0f);
+        lightIntensity[1] = glm::vec3(0.6f, 0.0f, 0.0f);
         
+        shader.setInt("size", 2);
         glUniform3fv(glGetUniformLocation(shader.ID, "lightPos[0]"), 2, glm::value_ptr(lightPositions[0]));
+        glUniform3fv(glGetUniformLocation(shader.ID, "lightIntensity[0]"), 2, glm::value_ptr(lightIntensity[0]));
         shadow.bind(shader, 2);
-        shadow2.bind(shader, 2);
 
         tex1.bind(0);
         tex2.bind(1);

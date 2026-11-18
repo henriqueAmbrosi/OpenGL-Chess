@@ -4,18 +4,20 @@ out vec4 FragColor;
 in vec3 FragPos;
 in vec2 TexCoord;
 in vec3 Normal;
-in vec4 FragPosLightSpace;
+in vec4 FragPosLightSpace[10];
 
 uniform sampler2D texture1; // xadrez2x2.png
 uniform sampler2D texture2; // madeira.png
-uniform sampler2D shadowMap;
+uniform sampler2DArray shadowMaps;
 
 uniform int materialID;
 uniform vec3 objectColor;
 uniform int isSpecial;
 uniform vec3 lightPos[10];
+uniform vec3 lightIntensity[10];
+uniform int size;
 
-float ShadowCalculation(vec4 fragPosLightSpace, vec3 normal, vec3 lightDir)
+float ShadowCalculation(vec4 fragPosLightSpace, vec3 normal, vec3 lightDir, float layer)
 {
     // Converte de clip-space para coordenadas normalizadas [0, 1]
     vec3 projCoords = fragPosLightSpace.xyz / fragPosLightSpace.w;
@@ -30,12 +32,13 @@ float ShadowCalculation(vec4 fragPosLightSpace, vec3 normal, vec3 lightDir)
 
     // PCF 3x3 para suavizar as bordas da sombra
     float shadow = 0.0;
-    vec2 texelSize = 1.0 / textureSize(shadowMap, 0);
+    vec2 texelSize = 1.0 / vec2(textureSize(shadowMaps, 0));
     for (int x = -1; x <= 1; ++x)
     {
         for (int y = -1; y <= 1; ++y)
         {
-            float pcfDepth = texture(shadowMap, projCoords.xy + vec2(x, y) * texelSize).r;
+            vec3 uvLayer = vec3(projCoords.xy + vec2(x, y) * texelSize, layer);
+            float pcfDepth = texture(shadowMaps, uvLayer).r;
             shadow += (projCoords.z - bias) > pcfDepth ? 1.0 : 0.0;
         }
     }
@@ -77,16 +80,14 @@ void main()
 
     vec3 norm = normalize(Normal);
     vec3 diffuse = vec3(0.0);
-    vec3 lighting = vec3(0.0);
-    for (int i = 0; i < 2; ++i) {
+    vec3 lighting = ambient;
+    for (int i = 0; i < size; ++i) {
         vec3 lightDir = normalize(lightPos[i] - FragPos);
-        diffuse = max(dot(norm, lightDir), 0.0) * lightColor;
-
-        vec3 shadowLightDir = normalize(lightPos[i] - FragPos);
-        float shadow = ShadowCalculation(FragPosLightSpace, norm, shadowLightDir);
-
-        lighting += ambient + (1.0 - shadow) * diffuse;
+        vec3 diffuse = max(dot(norm, lightDir), 0.0) * lightIntensity[i];
+        float shadow = ShadowCalculation(FragPosLightSpace[i], norm, lightDir, float(i));
+        lighting += (1.0 - shadow) * diffuse;
     }
+
 
     FragColor = baseColor * vec4(lighting, 1.0);
 }
