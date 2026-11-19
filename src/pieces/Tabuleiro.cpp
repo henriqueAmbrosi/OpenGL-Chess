@@ -244,6 +244,7 @@ void Tabuleiro::draw(Shader &shader, glm::mat4 model) {
 
     // 1. Desenha o CUBO CENTRAL (Tabuleiro)
     shader.setInt("materialID", 0);
+    shader.setInt("isSpecial", this->isSpecial);
     parts[0]->draw(shader, model);
 
     // 2. Desenha as BORDAS (Tabuleiro)
