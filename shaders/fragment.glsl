@@ -17,6 +17,7 @@ uniform vec3 lightPos[10];
 uniform vec3 lightIntensity[10];
 uniform int size;
 uniform float specularStrength;
+uniform vec3 viewPos;
 
 float ShadowCalculation(vec4 fragPosLightSpace, vec3 normal, vec3 lightDir, float layer)
 {
@@ -89,10 +90,10 @@ void main()
         lighting += (1.0 - shadow) * diffuse;
 
         // Specular
-        vec3 viewDir = normalize(-FragPos);
+        vec3 viewDir = normalize(viewPos-FragPos);
         vec3 reflectDir = reflect(-lightDir, norm);
         float spec = pow(max(dot(viewDir, reflectDir), 0.0), 32);
-        vec3 specular = specularStrength * spec * lightColor;
+        vec3 specular = specularStrength * spec * lightIntensity[i];
         lighting += specular * objectColor;
     }
 

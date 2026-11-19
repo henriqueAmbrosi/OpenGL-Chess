@@ -4,6 +4,7 @@
 #include <glm/glm.hpp>
 #include <glm/gtc/matrix_transform.hpp>
 #include <glm/gtc/type_ptr.hpp>
+#include <GLFW/glfw3.h>
 
 #include <Application.h>
 #include <utils/Shader.h>
@@ -33,7 +34,7 @@ int main() {
     // Shaders e texturas
     Shader shader("shaders/vertex.glsl", "shaders/fragment.glsl");
     Texture tex1("textures/xadrez2x2.png");
-    Texture tex2("textures/madeira.png");
+    Texture tex2("textures/opal.png");
 
     // Objetos da cena e auxiliares
     Tabuleiro p1(glm::vec3(0.0f, -4.0f, 0.0f), 0.0f);
@@ -87,6 +88,7 @@ int main() {
 
         shader.use();
         shader.setMat4("model", model);
+        shader.setVec3("viewPos", camera.position);
         shader.setFloat("specularStrength", 32.0f);
 
         camera.applyUniforms(shader, static_cast<float>(WIDTH) / HEIGHT);
@@ -94,7 +96,10 @@ int main() {
         lightPositions[0] = light.position;
         lightPositions[1] = light2.position;
         lightIntensity[0] = glm::vec3(1.0f, 1.0f, 1.0f);
-        lightIntensity[1] = glm::vec3(0.6f, 0.0f, 0.0f);
+        lightIntensity[1] = glm::vec3(1.0f, 1.0f, 1.0f);
+        // Ative para modo balada
+        // int tempo = static_cast<int>(glfwGetTime() * 9);
+        // lightIntensity[1] = glm::vec3(tempo % 2 * -1.0f, tempo % 3 * -1.0f, tempo % 5 * -1.0f);
         
         shader.setInt("size", 2);
         glUniform3fv(glGetUniformLocation(shader.ID, "lightPos[0]"), 2, glm::value_ptr(lightPositions[0]));
