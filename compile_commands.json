@@ -31,13 +31,13 @@
   },
   {
     "directory": "/home/bruno/Documentos/UCS/computacao_grafica/OpenGL-Chess",
-    "command": "g++ -std=c++17 -Wall -Wextra -Iinclude -I. -c src/pieces/Tabuleiro.cpp",
-    "file": "src/pieces/Tabuleiro.cpp"
+    "command": "g++ -std=c++17 -Wall -Wextra -Iinclude -I. -c src/pieces/Torre.cpp",
+    "file": "src/pieces/Torre.cpp"
   },
   {
     "directory": "/home/bruno/Documentos/UCS/computacao_grafica/OpenGL-Chess",
-    "command": "g++ -std=c++17 -Wall -Wextra -Iinclude -I. -c src/pieces/Torre.cpp",
-    "file": "src/pieces/Torre.cpp"
+    "command": "g++ -std=c++17 -Wall -Wextra -Iinclude -I. -c src/pieces/Tabuleiro.cpp",
+    "file": "src/pieces/Tabuleiro.cpp"
   },
   {
     "directory": "/home/bruno/Documentos/UCS/computacao_grafica/OpenGL-Chess",
@@ -96,13 +96,13 @@
   },
   {
     "directory": "/home/bruno/Documentos/UCS/computacao_grafica/OpenGL-Chess",
-    "command": "g++ -std=c++17 -Wall -Wextra -Iinclude -I. -c src/utils/Shadow.cpp",
-    "file": "src/utils/Shadow.cpp"
+    "command": "g++ -std=c++17 -Wall -Wextra -Iinclude -I. -c src/utils/Skybox.cpp",
+    "file": "src/utils/Skybox.cpp"
   },
   {
     "directory": "/home/bruno/Documentos/UCS/computacao_grafica/OpenGL-Chess",
-    "command": "g++ -std=c++17 -Wall -Wextra -Iinclude -I. -c src/utils/Skybox.cpp",
-    "file": "src/utils/Skybox.cpp"
+    "command": "g++ -std=c++17 -Wall -Wextra -Iinclude -I. -c src/utils/Shadow.cpp",
+    "file": "src/utils/Shadow.cpp"
   },
   {
     "directory": "/home/bruno/Documentos/UCS/computacao_grafica/OpenGL-Chess",

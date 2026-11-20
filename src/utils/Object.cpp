@@ -18,6 +18,7 @@ void Object::setPosition(glm::vec3 pos) {
 }
 
 void Object::draw(Shader &shader, glm::mat4 parentModel) {
+    shader.use();
     glm::mat4 model = glm::mat4(1.0f);
     model = glm::translate(parentModel, position);
     if (glm::length(rotation) > 0.0f) {

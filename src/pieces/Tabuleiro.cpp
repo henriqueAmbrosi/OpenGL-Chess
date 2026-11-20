@@ -8,6 +8,10 @@
 #include <pieces/Bispo.h>
 #include <pieces/Rei.h>
 #include <pieces/Rainha.h>
+#include "utils/Shadow.h"
+#include "utils/Texture.h"
+#include <glm/gtc/type_ptr.hpp>
+
 
 Tabuleiro::Tabuleiro(glm::vec3 pos, glm::vec3 rot, glm::vec3 scl, float angle)
     : Object(pos, rot, scl, angle) { init(); }
@@ -18,7 +22,7 @@ Tabuleiro::Tabuleiro(glm::vec3 pos, float angle)
 void Tabuleiro::inicializarPecas(){
     float escalaPeca = 1.1f; 
     glm::vec3 corBranca = glm::vec3(0.9f, 0.9f, 0.85f);
-    glm::vec3 corPreta  = glm::vec3(0.2f, 0.15f, 0.1f);
+    glm::vec3 corPreta  = glm::vec3(0.75f, 0.72f, 0.7f);
 
     auto setupBranca = [&](std::unique_ptr<Object>& slot, auto* pecaCriada) {
         slot.reset(pecaCriada);
@@ -236,6 +240,28 @@ bool Tabuleiro::estaOcupada(int coluna, int linha) const {
 
 void Tabuleiro::draw(Shader &shader, glm::mat4 model) {
     model = glm::translate(model, position);
+    if (glm::length(rotation) > 0.0f)
+        model = glm::rotate(model, glm::radians(angle), glm::normalize(rotation));
+    model = glm::scale(model, scale);
+
+    if (parts.empty()) return;
+
+    for (auto& part : parts) {
+        part->draw(shader, model);
+    }
+
+    for (int col = 0; col < 8; ++col) {
+        for (int lin = 0; lin < 8; ++lin) {
+            Object* peca = grid[col][lin].get();
+            if (peca != nullptr) {
+                peca->draw(shader, model);
+            }
+        }
+    }
+}
+
+void Tabuleiro::draw(Shader &shader, Shader &boardShader, glm::mat4 model) {
+    model = glm::translate(model, position);
     if (glm::length(rotation) > 0.0f) 
         model = glm::rotate(model, glm::radians(angle), glm::normalize(rotation));
     model = glm::scale(model, scale);
@@ -243,16 +269,17 @@ void Tabuleiro::draw(Shader &shader, glm::mat4 model) {
     if (parts.empty()) return;
 
     // 1. Desenha o CUBO CENTRAL (Tabuleiro)
-    shader.setInt("materialID", 0);
-    shader.setInt("isSpecial", this->isSpecial);
-    parts[0]->draw(shader, model);
+    boardShader.use();
+    boardShader.setInt("materialID", 0);
+    parts[0]->draw(boardShader, model);
 
     // 2. Desenha as BORDAS (Tabuleiro)
-    shader.setInt("materialID", 1);
+    boardShader.setInt("materialID", 1);
     for (size_t i = 1; i < parts.size(); ++i) {
-        parts[i]->draw(shader, model);
+        parts[i]->draw(boardShader, model);
     }
 
+    shader.use();
     // 3. Desenha as PEÇAS
     for (int col = 0; col < 8; ++col) {
         for (int lin = 0; lin < 8; ++lin) {

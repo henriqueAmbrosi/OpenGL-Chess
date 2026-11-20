@@ -43,17 +43,17 @@ void Controls::update() {
     
     // Light controls
     if (glfwGetKey(window, GLFW_KEY_UP) == GLFW_PRESS)
-        light->move(Movement::FORWARD);
+        light->move(Movement::FORWARD, camera->front);
     if (glfwGetKey(window, GLFW_KEY_DOWN) == GLFW_PRESS)
-        light->move(Movement::BACKWARD);
+        light->move(Movement::BACKWARD, camera->front);
     if (glfwGetKey(window, GLFW_KEY_LEFT) == GLFW_PRESS)
-        light->move(Movement::LEFT);
+        light->move(Movement::LEFT, camera->front);
     if (glfwGetKey(window, GLFW_KEY_RIGHT) == GLFW_PRESS)
-        light->move(Movement::RIGHT);
+        light->move(Movement::RIGHT, camera->front);
     if (glfwGetKey(window, GLFW_KEY_J) == GLFW_PRESS)
-        light->move(Movement::UP);
+        light->move(Movement::UP, camera->front);
     if (glfwGetKey(window, GLFW_KEY_M) == GLFW_PRESS)
-        light->move(Movement::DOWN);
+        light->move(Movement::DOWN, camera->front);
     if (keyClick(GLFW_KEY_L))
         light->swapMode();
 

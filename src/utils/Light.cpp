@@ -37,26 +37,27 @@ void Light::swapMode() {
     printf("Light Mode: %d\n", mode);
 }
 
-void Light::move(Movement direction) {
+void Light::move(Movement direction, glm::vec3 front) {
+    glm::vec3 up = glm::vec3(0.0f, 1.0f, 0.0f);
     if (mode == 1) {
         switch (direction) {
             case Movement::FORWARD:
-                position += glm::vec3(0.0f, 0.0f, 1.0f) * speed;
+            position += speed * front;
                 break;
             case Movement::BACKWARD:
-                position -= glm::vec3(0.0f, 0.0f, 1.0f) * speed;
+                position -= speed * front;
                 break;
             case Movement::LEFT:
-                position -= glm::vec3(1.0f, 0.0f, 0.0f) * speed;
+                position -= glm::normalize(glm::cross(front, up)) * speed;
                 break;
             case Movement::RIGHT:
-                position += glm::vec3(1.0f, 0.0f, 0.0f) * speed;
+                position += glm::normalize(glm::cross(front, up)) * speed;
                 break;
             case Movement::UP:
-                position += glm::vec3(0.0f, 1.0f, 0.0f) * speed;
+                position += glm::normalize(up) * speed;
                 break;
             case Movement::DOWN:
-                position -= glm::vec3(0.0f, 1.0f, 0.0f) * speed;
+                position -= glm::normalize(up) * speed;
                 break;
         }
     }

@@ -5,6 +5,7 @@
 #include <vector>
 #include <memory>
 #include <glm/glm.hpp>
+#include "utils/Shadow.h"
 
 class Tabuleiro : public Object {
 public:
@@ -17,6 +18,8 @@ public:
 
     void init();
     void draw(Shader &shader, glm::mat4 model = glm::mat4(1.0f)) override;
+    void draw(Shader &shader, Shader &boardShader, glm::mat4 model);
+
 
     // Função utilitária para calcular o centro 3D da casa
     glm::vec3 getPosicaoCasa(int coluna, int linha) const;
@@ -52,7 +55,7 @@ private:
     std::unique_ptr<Object> grid[8][8];
     Object* selectedPiece;
 
-    int selectedCol, selectedLine;
+    int selectedCol = -1, selectedLine = -1;
 
 };
 

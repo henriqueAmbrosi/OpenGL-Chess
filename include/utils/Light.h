@@ -34,7 +34,7 @@ public:
     void draw(const glm::mat4& view, const glm::mat4& projection);
 
     void swapMode();
-    void move(Movement direction);
+    void move(Movement direction, glm::vec3 front);
 
     glm::vec3 getPosition() const { return position; }
 };

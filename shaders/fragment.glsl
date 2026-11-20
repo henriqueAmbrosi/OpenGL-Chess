@@ -7,7 +7,9 @@ in vec3 Normal;
 in vec4 FragPosLightSpace[10];
 
 uniform sampler2D texture1; // xadrez2x2.png
-uniform sampler2D texture2; // madeira.png
+uniform sampler2D texture2; // opal.png
+uniform sampler2D texture3; // madeira.png
+uniform sampler2D texture4; // dark_marble.png
 uniform sampler2DArray shadowMaps;
 
 uniform int materialID;
@@ -53,28 +55,23 @@ void main()
 {
     vec4 baseColor;
 
-    if (materialID == 0) {
-        vec2 tiledCoord = TexCoord * 4.0;
-        baseColor = texture(texture1, tiledCoord);
-    } 
-    else if (materialID == 1) {
-        vec2 woodCoord = vec2(TexCoord.x * 4.0, TexCoord.y * 1.0); 
-        baseColor = texture(texture2, woodCoord);
-    } 
-    else if (materialID == 2) {
+
+    if (materialID == 2) {
         vec4 texColor = texture(texture2, TexCoord);
         baseColor = texColor * vec4(objectColor, 1.0f);
+    } else if (materialID == 3) {
+        vec4 texColor = texture(texture4, TexCoord);
+        baseColor = texColor * vec4(objectColor, 1.0f);
     } else {
-        vec4 texColor = texture(texture2, TexCoord);
-        baseColor = mix(texColor * vec4(objectColor, 1.0f), vec4(1.0f, 1.0f, 1.0f, 1.0f), 0.1f);
+        baseColor = vec4(objectColor, 1.0f);
     }
 
     if (isSpecial != 0) {
-        baseColor = mix(texture(texture2, TexCoord), vec4(0.0f, 1.0f, 0.0f, 1.0f), 0.2f);
+        baseColor = mix(baseColor, vec4(0.0f, 1.0f, 0.0f, 1.0f), 0.4f);
     }
 
     // ambient
-    float ambientStrength = 0.15;
+    float ambientStrength = 0.25;
     vec3 lightColor = vec3(1.0, 1.0, 0.0);
     vec3 ambient = ambientStrength * lightColor;
 
