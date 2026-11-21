@@ -40,9 +40,7 @@ void setupPieceShader(Shader& shader,
                         const std::vector<glm::vec3>& lightPositions,
                         const std::vector<glm::vec3>& lightIntensity,
                         Texture& tex1,
-                        Texture& tex2,
-                        Texture& tex3,
-                        Texture& tex4) {
+                        Texture& tex2) {
     shader.use();
     shader.setMat4("model", model);
     shader.setVec3("viewPos", camera.position);
@@ -54,10 +52,8 @@ void setupPieceShader(Shader& shader,
     glUniform3fv(glGetUniformLocation(shader.ID, "lightIntensity[0]"), 2, glm::value_ptr(lightIntensity[0]));
     shadow.bind(shader, 2);
 
-    tex1.bind(0);
-    tex2.bind(1);
-    tex3.bind(3);
-    tex4.bind(4);
+    tex1.bind(2);
+    tex2.bind(4);
 }
 
 void setupBoardShader(Shader& boardShader,
@@ -118,15 +114,13 @@ int main() {
 
     // Configura slots de textura
     shader.use();
-    shader.setInt("texture1", 0);
-    shader.setInt("texture2", 1);
-    shader.setInt("texture3", 3);
-    shader.setInt("texture4", 4);
+    shader.setInt("opal", 3);
+    shader.setInt("dark_marble", 4);
     shadow.configureShader(shader, 2);
     
     boardShader.use();
-    boardShader.setInt("texture1", 0);
-    boardShader.setInt("texture2", 3);
+    boardShader.setInt("xadrez", 0);
+    boardShader.setInt("marble", 3);
     shadow.configureShader(boardShader, 2);
 
     // Loop principal
@@ -164,7 +158,7 @@ int main() {
         setupBoardShader(boardShader, model, camera, aspect, shadow, lightPositions, lightIntensity,
                          tex1, tex3);
         setupPieceShader(shader, model, camera, aspect, shadow, lightPositions, lightIntensity,
-                         tex1, tex2, tex3, tex4);
+                         tex2, tex4);
 
         shader.use();
 

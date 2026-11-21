@@ -6,10 +6,8 @@ in vec2 TexCoord;
 in vec3 Normal;
 in vec4 FragPosLightSpace[10];
 
-uniform sampler2D texture1; // xadrez2x2.png
-uniform sampler2D texture2; // opal.png
-uniform sampler2D texture3; // madeira.png
-uniform sampler2D texture4; // dark_marble.png
+uniform sampler2D opal; // opal.png
+uniform sampler2D dark_marble; // dark_marble.png
 uniform sampler2DArray shadowMaps;
 
 uniform int materialID;
@@ -55,12 +53,11 @@ void main()
 {
     vec4 baseColor;
 
-
     if (materialID == 2) {
-        vec4 texColor = texture(texture2, TexCoord);
+        vec4 texColor = texture(opal, TexCoord);
         baseColor = texColor * vec4(objectColor, 1.0f);
     } else if (materialID == 3) {
-        vec4 texColor = texture(texture4, TexCoord);
+        vec4 texColor = texture(dark_marble, TexCoord);
         baseColor = texColor * vec4(objectColor, 1.0f);
     } else {
         baseColor = vec4(objectColor, 1.0f);

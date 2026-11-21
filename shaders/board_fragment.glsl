@@ -6,8 +6,8 @@ in vec2 TexCoord;
 in vec3 Normal;
 in vec4 FragPosLightSpace[10];
 
-uniform sampler2D texture1; // xadrez2x2.png
-uniform sampler2D texture2; // marble.png
+uniform sampler2D xadrez; // xadrez2x2.png
+uniform sampler2D marble; // marble.png
 uniform sampler2DArray shadowMaps;
 
 uniform int materialID;
@@ -53,7 +53,7 @@ void main()
 
     if (materialID == 0) {
         vec2 tiledCoord = TexCoord * 4.0;
-        baseColor = texture(texture1, tiledCoord);
+        baseColor = texture(xadrez, tiledCoord);
     } 
     else if (materialID == 1) {
         vec3 n = abs(normalize(Normal));
@@ -66,7 +66,7 @@ void main()
             woodCoord = FragPos.xy;
         }
         woodCoord *= 0.1; // repetição por coordenada global
-        baseColor = texture(texture2, woodCoord);
+        baseColor = texture(marble, woodCoord);
     } 
     
     // ambient
@@ -81,16 +81,9 @@ void main()
     vec3 lighting = ambient;
     for (int i = 0; i < size; ++i) {
         vec3 lightDir = normalize(lightPos[i] - FragPos);
-        vec3 diffuse = max(dot(norm, lightDir), 0.0) * lightIntensity[i]/2;
+        vec3 diffuse = max(dot(norm, lightDir), 0.0) * lightIntensity[i];
         float shadow = ShadowCalculation(FragPosLightSpace[i], norm, lightDir, float(i));
         lighting += (1.0 - shadow) * diffuse;
-
-        // Specular
-        vec3 viewDir = normalize(viewPos-FragPos);
-        vec3 reflectDir = reflect(-lightDir, norm);
-        float spec = pow(max(dot(viewDir, reflectDir), 0.0), 16);
-        vec3 specular = specularStrength * spec * lightIntensity[i];
-        lighting += specular;
     }
 
     
