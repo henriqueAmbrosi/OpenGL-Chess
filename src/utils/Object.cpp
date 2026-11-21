@@ -8,13 +8,23 @@ Object::Object()
 {}
 
 Object::Object(glm::vec3 pos, glm::vec3 rot, glm::vec3 scl, float angle)
-    : position(pos), rotation(rot), scale(scl), angle(angle)
+    : position(pos), rotation(rot), scale(scl), angle(angle), desiredPosition(pos)
 {
     // construtor básico — inicializa os valores recebidos
 }
 
-void Object::setPosition(glm::vec3 pos) {
-    position = pos;
+void Object::setPosition(glm::vec3 pos) {   
+    desiredPosition = pos;
+}
+
+void Object::update() {
+    glm::vec3 equal = glm::equal(position, desiredPosition);
+    if (equal.x && equal.y && equal.z) {
+        return;
+    }
+    glm::vec3 delta = desiredPosition - position;
+
+    position += delta/10.0f;
 }
 
 void Object::draw(Shader &shader, glm::mat4 parentModel) {

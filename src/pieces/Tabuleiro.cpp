@@ -285,6 +285,7 @@ void Tabuleiro::draw(Shader &shader, Shader &boardShader, glm::mat4 model) {
         for (int lin = 0; lin < 8; ++lin) {
             Object* peca = grid[col][lin].get();
             if (peca != nullptr) {
+                peca->update();
                 peca->draw(shader, model);
             }
         }

@@ -11,9 +11,11 @@
 class Object {
 public:
     glm::vec3 position;
+    glm::vec3 desiredPosition;
     glm::vec3 rotation;
     glm::vec3 scale;
     float angle;
+    float animationSpeed = 1;
     int isSpecial = 0;
 
     Object();
@@ -28,6 +30,7 @@ public:
     void setMaterialID(int id) { materialID = id; }
     int getMaterialID() const { return materialID; }
     void setPosition(glm::vec3 position);
+    void update();
 
 protected:
     glm::vec3 cor = glm::vec3(1.0f);
