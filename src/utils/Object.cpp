@@ -24,7 +24,7 @@ void Object::update() {
     }
     glm::vec3 delta = desiredPosition - position;
 
-    position += delta/10.0f;
+    position += delta/(1/animationSpeed);
 }
 
 void Object::draw(Shader &shader, glm::mat4 parentModel) {

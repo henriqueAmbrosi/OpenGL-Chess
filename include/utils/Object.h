@@ -15,7 +15,7 @@ public:
     glm::vec3 rotation;
     glm::vec3 scale;
     float angle;
-    float animationSpeed = 1;
+    float animationSpeed = 0.1f;
     int isSpecial = 0;
 
     Object();
