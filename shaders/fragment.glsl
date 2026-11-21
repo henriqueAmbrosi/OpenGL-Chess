@@ -88,7 +88,7 @@ void main()
         vec3 reflectDir = reflect(-lightDir, norm);
         float spec = pow(max(dot(viewDir, reflectDir), 0.0), 32);
         vec3 specular = specularStrength * spec * lightIntensity[i];
-        lighting += specular * objectColor;
+        lighting += specular * objectColor * (1.0 - shadow);
     }
 
     

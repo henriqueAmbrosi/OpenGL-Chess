@@ -25,8 +25,8 @@ void updateSceneLights(std::vector<glm::vec3>& lightPositions,
                        const Light& light2) {
     lightPositions[0] = light.position;
     lightPositions[1] = light2.position;
-    lightIntensity[0] = glm::vec3(1.0f, 1.0f, 1.0f);
-    lightIntensity[1] = glm::vec3(1.0f, 1.0f, 1.0f);
+    lightIntensity[0] = glm::vec3(0.7f, 0.7f, 0.7f);
+    lightIntensity[1] = glm::vec3(0.8f, 0.7f, 0.7f);
     // Ative para modo balada
     // int tempo = static_cast<int>(glfwGetTime() * 9);
     // lightIntensity[1] = glm::vec3(tempo % 2 * -1.0f, tempo % 3 * -1.0f, tempo % 5 * -1.0f);
@@ -44,7 +44,7 @@ void setupPieceShader(Shader& shader,
     shader.use();
     shader.setMat4("model", model);
     shader.setVec3("viewPos", camera.position);
-    shader.setFloat("specularStrength", 32.0f);
+    shader.setFloat("specularStrength", 6.0f);
     camera.applyUniforms(shader, aspect);
 
     shader.setInt("size", 2);
@@ -52,7 +52,7 @@ void setupPieceShader(Shader& shader,
     glUniform3fv(glGetUniformLocation(shader.ID, "lightIntensity[0]"), 2, glm::value_ptr(lightIntensity[0]));
     shadow.bind(shader, 2);
 
-    tex1.bind(2);
+    tex1.bind(1);
     tex2.bind(4);
 }
 
@@ -71,7 +71,7 @@ void setupBoardShader(Shader& boardShader,
     glUniform3fv(glGetUniformLocation(boardShader.ID, "lightIntensity[0]"), 2, glm::value_ptr(lightIntensity[0]));
     boardShader.setMat4("model", model);
     boardShader.setVec3("viewPos", camera.position);
-    boardShader.setFloat("specularStrength", 8.0f);
+    boardShader.setFloat("specularStrength", 0.5f);
     shadow.bind(boardShader, 2);
     camera.applyUniforms(boardShader, aspect);
 
@@ -114,7 +114,7 @@ int main() {
 
     // Configura slots de textura
     shader.use();
-    shader.setInt("opal", 3);
+    shader.setInt("opal", 1);
     shader.setInt("dark_marble", 4);
     shadow.configureShader(shader, 2);
     

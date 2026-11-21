@@ -84,6 +84,13 @@ void main()
         vec3 diffuse = max(dot(norm, lightDir), 0.0) * lightIntensity[i];
         float shadow = ShadowCalculation(FragPosLightSpace[i], norm, lightDir, float(i));
         lighting += (1.0 - shadow) * diffuse;
+
+        // Specular
+        vec3 viewDir = normalize(viewPos-FragPos);
+        vec3 reflectDir = reflect(-lightDir, norm);
+        float spec = pow(max(dot(viewDir, reflectDir), 0.0), 32);
+        vec3 specular = specularStrength * spec * lightIntensity[i];
+        lighting += specular * (1.0 - shadow);
     }
 
     
