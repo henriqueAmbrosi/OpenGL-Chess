@@ -1,26 +1,23 @@
 # depslib dependency file v1.0
-1793639380 source:/home/bruno/Documentos/UCS/computacao_grafica/OpenGL-Chess/main.cpp
+1795272127 source:/home/bruno/Documentos/UCS/computacao_grafica/OpenGL-Chess/main.cpp
 	<GL/glew.h>
 	<GLFW/glfw3.h>
-	<cstdio>
-	<glm/ext/matrix_transform.hpp>
+	<glm/ext/vector_float3.hpp>
 	<glm/glm.hpp>
 	<glm/gtc/matrix_transform.hpp>
 	<glm/gtc/type_ptr.hpp>
-	<glm/matrix.hpp>
-	<glm/trigonometric.hpp>
-	<utils/Shader.h>
+	<GLFW/glfw3.h>
 	<Application.h>
-	<shapes/Cube.h>
-	<pieces/Tabuleiro.h>
-	<pieces/Peao.h>
-	<pieces/Cavalo.h>
-	<pieces/Torre.h>
-	<pieces/Bispo.h>
-	<pieces/Rei.h>
-	<pieces/Rainha.h>
+	<utils/Shader.h>
 	<utils/Texture.h>
-	<iostream>
+	<utils/Light.h>
+	<utils/Shadow.h>
+	<utils/Camera.h>
+	<utils/Crosshair.h>
+	<utils/Skybox.h>
+	<utils/Controls.h>
+	<pieces/Tabuleiro.h>
+	<vector>
 
 1792260909 /home/bruno/Documentos/UCS/computacao_grafica/OpenGL-Chess/include/utils/Shader.h
 	<GL/glew.h>
@@ -41,7 +38,7 @@
 	<glm/gtc/matrix_transform.hpp>
 	<utils/Object.h>
 
-1793233851 /home/bruno/Documentos/UCS/computacao_grafica/OpenGL-Chess/include/utils/Object.h
+1795269470 /home/bruno/Documentos/UCS/computacao_grafica/OpenGL-Chess/include/utils/Object.h
 	<glm/ext/vector_float3.hpp>
 	<glm/glm.hpp>
 	<glm/gtc/matrix_transform.hpp>
@@ -49,11 +46,12 @@
 	<memory>
 	"utils/Shader.h"
 
-1793234699 /home/bruno/Documentos/UCS/computacao_grafica/OpenGL-Chess/include/pieces/Tabuleiro.h
+1795193734 /home/bruno/Documentos/UCS/computacao_grafica/OpenGL-Chess/include/pieces/Tabuleiro.h
 	"utils/Object.h"
 	<vector>
 	<memory>
 	<glm/glm.hpp>
+	"utils/Shadow.h"
 
 1792371410 /home/bruno/Documentos/UCS/computacao_grafica/OpenGL-Chess/include/pieces/Peao.h
 	<glm/glm.hpp>
@@ -140,7 +138,7 @@
 	"shapes/Esfera.h"
 	"shapes/Cube.h"
 
-1793664441 source:/home/bruno/Documentos/UCS/computacao_grafica/OpenGL-Chess/src/pieces/Tabuleiro.cpp
+1795268927 source:/home/bruno/Documentos/UCS/computacao_grafica/OpenGL-Chess/src/pieces/Tabuleiro.cpp
 	"pieces/Tabuleiro.h"
 	"shapes/Cube.h"
 	<cstddef>
@@ -151,6 +149,9 @@
 	<pieces/Bispo.h>
 	<pieces/Rei.h>
 	<pieces/Rainha.h>
+	"utils/Shadow.h"
+	"utils/Texture.h"
+	<glm/gtc/type_ptr.hpp>
 
 1793639380 source:/home/bruno/Documentos/UCS/computacao_grafica/OpenGL-Chess/src/pieces/Torre.cpp
 	"pieces/Torre.h"
@@ -158,10 +159,10 @@
 	"shapes/Cube.h"
 	<cmath>
 
-1792260909 source:/home/bruno/Documentos/UCS/computacao_grafica/OpenGL-Chess/src/shapes/Cube.cpp
+1794768110 source:/home/bruno/Documentos/UCS/computacao_grafica/OpenGL-Chess/src/shapes/Cube.cpp
 	"shapes/Cube.h"
 
-1792260909 source:/home/bruno/Documentos/UCS/computacao_grafica/OpenGL-Chess/src/shapes/Esfera.cpp
+1794768110 source:/home/bruno/Documentos/UCS/computacao_grafica/OpenGL-Chess/src/shapes/Esfera.cpp
 	"shapes/Esfera.h"
 	<cmath>
 
@@ -174,7 +175,7 @@
 	<glm/gtc/matrix_transform.hpp>
 	<utils/Object.h>
 
-1792260909 source:/home/bruno/Documentos/UCS/computacao_grafica/OpenGL-Chess/src/shapes/TroncoCone.cpp
+1794768110 source:/home/bruno/Documentos/UCS/computacao_grafica/OpenGL-Chess/src/shapes/TroncoCone.cpp
 	"shapes/TroncoCone.h"
 	<cmath>
 
@@ -184,7 +185,7 @@
 1792260909 /home/bruno/Documentos/UCS/computacao_grafica/OpenGL-Chess/include/utils/Mesh.h
 	<GL/glew.h>
 
-1793233964 source:/home/bruno/Documentos/UCS/computacao_grafica/OpenGL-Chess/src/utils/Object.cpp
+1795269412 source:/home/bruno/Documentos/UCS/computacao_grafica/OpenGL-Chess/src/utils/Object.cpp
 	"utils/Object.h"
 	<glm/ext/vector_float3.hpp>
 	<glm/gtc/matrix_transform.hpp>
@@ -214,4 +215,72 @@
 	"utils/Texture.h"
 	<utils/stb_image.h>
 	<iostream>
+
+1795191291 /home/bruno/Documentos/UCS/computacao_grafica/OpenGL-Chess/include/utils/Light.h
+	<glm/glm.hpp>
+	<glm/gtc/matrix_transform.hpp>
+	<utils/Movement.h>
+	<utils/Shader.h>
+	<shapes/Esfera.h>
+
+1794768110 /home/bruno/Documentos/UCS/computacao_grafica/OpenGL-Chess/include/utils/Movement.h
+
+1795041211 /home/bruno/Documentos/UCS/computacao_grafica/OpenGL-Chess/include/utils/Shadow.h
+	<GL/glew.h>
+	<glm/glm.hpp>
+	<glm/gtc/matrix_transform.hpp>
+	<utils/Shader.h>
+	<functional>
+
+1795647158 /home/bruno/Documentos/UCS/computacao_grafica/OpenGL-Chess/include/utils/Camera.h
+	<glm/glm.hpp>
+	<glm/gtc/matrix_transform.hpp>
+	<utils/Shader.h>
+	<utils/Movement.h>
+
+1794768110 /home/bruno/Documentos/UCS/computacao_grafica/OpenGL-Chess/include/utils/Crosshair.h
+	<GL/glew.h>
+	<glm/glm.hpp>
+	<glm/gtc/matrix_transform.hpp>
+	<utils/Shader.h>
+
+1794772658 /home/bruno/Documentos/UCS/computacao_grafica/OpenGL-Chess/include/utils/Skybox.h
+	<GL/glew.h>
+	<glm/glm.hpp>
+	<utils/Shader.h>
+	<shapes/Cube.h>
+
+1794768110 /home/bruno/Documentos/UCS/computacao_grafica/OpenGL-Chess/include/utils/Controls.h
+	<glm/glm.hpp>
+	<utils/Camera.h>
+	<utils/Light.h>
+	<pieces/Tabuleiro.h>
+	<unordered_map>
+
+1794768110 source:/home/bruno/Documentos/UCS/computacao_grafica/OpenGL-Chess/src/utils/Camera.cpp
+	"utils/Camera.h"
+	<cmath>
+	<utils/Movement.h>
+
+1795647006 source:/home/bruno/Documentos/UCS/computacao_grafica/OpenGL-Chess/src/utils/Controls.cpp
+	"utils/Controls.h"
+	<GLFW/glfw3.h>
+
+1794768110 source:/home/bruno/Documentos/UCS/computacao_grafica/OpenGL-Chess/src/utils/Crosshair.cpp
+	"utils/Crosshair.h"
+
+1795041211 source:/home/bruno/Documentos/UCS/computacao_grafica/OpenGL-Chess/src/utils/Shadow.cpp
+	"utils/Shadow.h"
+	<GL/glext.h>
+
+1794774609 source:/home/bruno/Documentos/UCS/computacao_grafica/OpenGL-Chess/src/utils/Skybox.cpp
+	"utils/Skybox.h"
+	<utils/stb_image.h>
+	<iostream>
+
+1795647350 source:/home/bruno/Documentos/UCS/computacao_grafica/OpenGL-Chess/src/utils/Light.cpp
+	"utils/Light.h"
+	<GLFW/glfw3.h>
+	<cmath>
+	<cstdio>
 

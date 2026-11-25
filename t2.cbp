@@ -8,8 +8,8 @@
 		<Build>
 			<Target title="Debug">
 				<Option output="bin/Debug/t2" prefix_auto="1" extension_auto="1" />
-				<Option object_output="obj/Debug/" />
 				<Option working_dir="$(PROJECT_DIR)" />
+				<Option object_output="obj/Debug/" />
 				<Option type="1" />
 				<Option compiler="gcc" />
 				<Compiler>
@@ -24,8 +24,8 @@
 			</Target>
 			<Target title="Release">
 				<Option output="bin/Release/t2" prefix_auto="1" extension_auto="1" />
-				<Option object_output="obj/Release/" />
 				<Option working_dir="$(PROJECT_DIR)" />
+				<Option object_output="obj/Release/" />
 				<Option type="1" />
 				<Option compiler="gcc" />
 				<Compiler>
@@ -45,10 +45,10 @@
 			<Add option="-Wextra" />
 			<Add option="-fexceptions" />
 		</Compiler>
-		<Unit filename="t2.layout" />
-		<Unit filename="cursor_fragment.glsl" />
-		<Unit filename="cursor_vertex.glsl" />
-		<Unit filename="fragment.glsl" />
+		<Unit filename="OpenGLChess.depend" />
+		<Unit filename="OpenGLChess.layout" />
+		<Unit filename="WhatsApp Image 2026-11-04 at 20.00.09.jpeg" />
+		<Unit filename="compile_commands.json" />
 		<Unit filename="include/Application.h" />
 		<Unit filename="include/pieces/Bispo.h" />
 		<Unit filename="include/pieces/Cavalo.h" />
@@ -59,15 +59,34 @@
 		<Unit filename="include/pieces/Torre.h" />
 		<Unit filename="include/shapes/Cube.h" />
 		<Unit filename="include/shapes/Esfera.h" />
-		<Unit filename="include/shapes/Prisma.h" />
 		<Unit filename="include/shapes/TroncoCone.h" />
+		<Unit filename="include/utils/Camera.h" />
+		<Unit filename="include/utils/Controls.h" />
+		<Unit filename="include/utils/Crosshair.h" />
+		<Unit filename="include/utils/Light.h" />
 		<Unit filename="include/utils/Mesh.h" />
+		<Unit filename="include/utils/Movement.h" />
 		<Unit filename="include/utils/Object.h" />
 		<Unit filename="include/utils/Shader.h" />
+		<Unit filename="include/utils/Shadow.h" />
+		<Unit filename="include/utils/Skybox.h" />
 		<Unit filename="include/utils/Texture.h" />
 		<Unit filename="include/utils/stb_image.h" />
 		<Unit filename="main.cpp" />
 		<Unit filename="makefile" />
+		<Unit filename="out" />
+		<Unit filename="readme.md" />
+		<Unit filename="shaders/board_fragment.glsl" />
+		<Unit filename="shaders/cursor_fragment.glsl" />
+		<Unit filename="shaders/cursor_vertex.glsl" />
+		<Unit filename="shaders/depth_fragment.glsl" />
+		<Unit filename="shaders/depth_vertex.glsl" />
+		<Unit filename="shaders/fragment.glsl" />
+		<Unit filename="shaders/light_fragment.glsl" />
+		<Unit filename="shaders/light_vertex.glsl" />
+		<Unit filename="shaders/skybox_fragment.glsl" />
+		<Unit filename="shaders/skybox_vertex.glsl" />
+		<Unit filename="shaders/vertex.glsl" />
 		<Unit filename="src/Application.cpp" />
 		<Unit filename="src/pieces/Bispo.cpp" />
 		<Unit filename="src/pieces/Cavalo.cpp" />
@@ -78,15 +97,27 @@
 		<Unit filename="src/pieces/Torre.cpp" />
 		<Unit filename="src/shapes/Cube.cpp" />
 		<Unit filename="src/shapes/Esfera.cpp" />
-		<Unit filename="src/shapes/Prisma.cpp" />
 		<Unit filename="src/shapes/TroncoCone.cpp" />
+		<Unit filename="src/utils/Camera.cpp" />
+		<Unit filename="src/utils/Controls.cpp" />
+		<Unit filename="src/utils/Crosshair.cpp" />
+		<Unit filename="src/utils/Light.cpp" />
 		<Unit filename="src/utils/Mesh.cpp" />
 		<Unit filename="src/utils/Object.cpp" />
+		<Unit filename="src/utils/Shadow.cpp" />
+		<Unit filename="src/utils/Skybox.cpp" />
 		<Unit filename="src/utils/Texture.cpp" />
 		<Unit filename="src/utils/stb_image.cpp" />
+		<Unit filename="t2.depend" />
+		<Unit filename="t2.layout" />
+		<Unit filename="textures/Cubemap_Sky_15-512x512.png" />
+		<Unit filename="textures/black_marble.jpg" />
+		<Unit filename="textures/black_marble.jpg.rrdata" />
+		<Unit filename="textures/black_marble.png" />
 		<Unit filename="textures/madeira.png" />
+		<Unit filename="textures/marble.jpg" />
+		<Unit filename="textures/opal.png" />
 		<Unit filename="textures/xadrez2x2.png" />
-		<Unit filename="vertex.glsl" />
 		<Extensions>
 			<lib_finder disable_auto="1" />
 		</Extensions>

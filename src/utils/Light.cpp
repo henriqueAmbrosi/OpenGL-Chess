@@ -42,9 +42,11 @@ void Light::move(Movement direction, glm::vec3 front) {
     if (mode == 1) {
         switch (direction) {
             case Movement::FORWARD:
-            position += speed * front;
+                front.y = 0.0f;
+                position += speed * front;
                 break;
             case Movement::BACKWARD:
+                front.y = 0.0f;
                 position -= speed * front;
                 break;
             case Movement::LEFT:
